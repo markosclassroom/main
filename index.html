@@ -7,16 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <title>Marko's Classroom</title>
-    <link rel="icon" href="s/dog.png">
-    <link rel="stylesheet" href="main.css">
-    <script src="s/particles.js"></script>
-    <script defer src="s/script.js"></script>
+    <link rel="icon" href="/s/dog.png">
+    <link rel="stylesheet" href="/main.css">
+    <script src="/s/particles.js"></script>
+    <script defer src="/s/script.js"></script>
 
     <script>
         function searchProxy() {
             let query = document.getElementById('searchBar').value.trim();
             if (query) {
-                window.location.href = `s/proxy.html?search=${encodeURIComponent(query)}`;
+                window.location.href = `/s/proxy.html?search=${encodeURIComponent(query)}`;
             }
         }
     </script>
@@ -25,20 +25,25 @@
 <body>
     <div id="particles-js"></div>
     <header class="header nav-container">
-        <img src="s/dog.png" alt="Image" class="header-img">
+        <img src="/s/dog.png" alt="Image" class="header-img">
         <h1 class="header-text">Marko's Classroom</h1>
     </header>
 
     <div class="container center-container"> 
-        <button class="center-button" onclick="location.href='s/games.html'">Games</button>
-        <button class="center-button" onclick="location.href='s/proxy.html'">Proxy</button>
-        <button class="center-button" onclick="location.href='s/more.html'">More</button>
+        <button class="center-button" onclick="location.href='/s/games.html'">Games</button>
+        <button class="center-button" onclick="location.href='/s/proxy.html'">Proxy</button>
+        <button class="center-button" onclick="location.href='/s/more.html'">More</button>
     </div>
-    <p>&nbsp;</p>
+    <p class="small">&nbsp;</p>
     <div class="search-container container">
             <input class="input-field" type="text" id="searchBar" placeholder="Search in Proxy...">
             <button onclick="searchProxy()">Search</button>
         </div>
+    <p class="small">&nbsp;</p>
+    <div class="container">
+        <button class="center-button" onclick="window.open('https://discord.gg/BBcHrUYYNv', '_blank')">Discord</button>
+        <button class="center-button" onclick="window.open('https://docs.google.com/document/d/1uYzV3qtnhY9K1rueLH5SVbLpyBikvipcQgAgpFMUsss/edit?usp=sharing', '_blank')">Links</button>
+    </div>
     </div>
 </body>
 <footer>

@@ -7,6 +7,10 @@ html {
     box-sizing: border-box;
 }
 
+.small {
+    font-size: 0%; 
+}
+
 .footer-text {
     position: fixed;
     bottom: 10px; /* Adjust if needed */
