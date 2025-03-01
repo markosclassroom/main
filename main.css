@@ -1,0 +1,285 @@
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@500;700&display=swap');
+html {
+    font-size: 16px;   
+}
+
+*{
+    box-sizing: border-box;
+}
+
+.footer-text {
+    position: fixed;
+    bottom: 10px; /* Adjust if needed */
+    left: 10px; /* Adjust if needed */
+    font-size: 14px;
+    color: whitesmoke;
+}
+
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+body {
+    background-color: #111311;
+    color: whitesmoke;
+    font-family: sans-serif;
+}
+.header {
+    display: flex;
+    justify-content: left; 
+    align-items: center;
+    width: 100%;
+}
+
+.header-img {
+    width: 75px;
+    height: 75px;
+    margin-right: 15px; 
+    border-radius: 15px;
+}
+
+.header-text {
+    margin: 0;
+}
+
+.nav-container {
+    display: flex;
+    gap: 10px;
+    background-color: black;
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+.nav-button, .icon-button {
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    background-color: rgba(26, 26, 26, 0.8); 
+    padding: 20px;
+    border-radius: 25px; 
+    box-shadow: 0 0 15px 5px white; 
+    width: fit-content; 
+    margin: 20px auto; 
+}
+
+button {
+    padding: 15px 25px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #2b2b2b;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    margin: 5px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+    background-color: #4b4b4b;
+    box-shadow: 0 0 10px white; 
+}
+
+.button-container {
+    margin: 20px;
+    display: flex; /* Use flexbox to align items */
+    gap: 10px; /* Optional, for spacing between buttons */
+}
+
+.center-button {
+    padding: 15px 25px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #2b2b2b;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    margin: 5px;
+}
+
+
+.center-container {
+    justify-content: center; 
+}
+
+
+.right-container {
+    justify-content: flex-end; 
+}
+
+.section {
+    padding: 50px;
+    margin-top: 20px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+}
+
+.blocked-message {
+    color: red;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.popup-message {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    display: none;
+}
+
+.popup-message button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.popup-message button:hover {
+    background-color: darkred;
+}
+
+.above-text, .below-text {
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    margin: 10px 0;
+}
+
+.above-text {
+    font-weight: bold;
+}
+
+.below-text {
+    font-style: italic;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.input-field {
+    margin: 2px;
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 14px;
+    border: 2px solid #1a1a1acc;
+    border-radius: 12px;
+    background-color: #2b2b2b;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    transition: 0.3s;
+    width: 300px; 
+}
+
+.input-field:hover {
+    background-color: #4b4b4b;
+    border-color: #1a1a1acc;
+}
+
+.input-field:focus {
+    background-color: white;
+    color: black;
+    border-color: #1a1a1acc;
+}
+
+        .embed-container {
+            width: 90vw;
+            max-width: 900px; 
+            height: 500px;
+            margin: 20px auto;
+            display: none; 
+            border: 2px solid white;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .embed-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .proxy-controls {
+            text-align: center;
+            margin: 10px auto;
+        }
+
+        .proxy-controls button {
+            margin: 5px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #2b2b2b;
+            color: white;
+            font-size: 16px;
+        }
+
+        .proxy-controls button:hover {
+            background-color: #4b4b4b;
+        }
+    .game-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        padding: 20px;
+    }
+    .game-button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: inherit;
+        background: #222;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s ease-in-out;
+    }
+    .game-button:hover {
+        transform: scale(1.05);
+    }
+    .game-button img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+    .game-button p {
+        margin: 10px 0 0;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+    }

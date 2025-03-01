@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Marko Vityk">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Marko's Classroom</title>
+    <link rel="icon" href="s/dog.png">
+    <link rel="stylesheet" href="main.css">
+    <script src="s/particles.js"></script>
+    <script defer src="s/script.js"></script>
+
+    <script>
+        function searchProxy() {
+            let query = document.getElementById('searchBar').value.trim();
+            if (query) {
+                window.location.href = `s/proxy.html?search=${encodeURIComponent(query)}`;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="particles-js"></div>
+    <header class="header nav-container">
+        <img src="s/dog.png" alt="Image" class="header-img">
+        <h1 class="header-text">Marko's Classroom</h1>
+    </header>
+
+    <div class="container center-container"> 
+        <button class="center-button" onclick="location.href='s/games.html'">Games</button>
+        <button class="center-button" onclick="location.href='s/proxy.html'">Proxy</button>
+        <button class="center-button" onclick="location.href='s/more.html'">More</button>
+    </div>
+    <p>&nbsp;</p>
+    <div class="search-container container">
+            <input class="input-field" type="text" id="searchBar" placeholder="Search in Proxy...">
+            <button onclick="searchProxy()">Search</button>
+        </div>
+    </div>
+</body>
+<footer>
+    <p class="footer-text">&copy; 2025 Marko Vityk</p>
+</footer>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Marko Vityk">
+    
+    <title>Marko's Classroom</title>
+    <link rel="icon" href="dog.png">
+    <link rel="stylesheet" href="../main.css">
+    <script src="particles.js"></script>
+    <script defer src="script.js"></script>
+
+    <style>
+        .container {
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            background-color: #1a1a1acc; 
+            padding: 20px;
+            border-radius: 25px; 
+            box-shadow: 0 0 15px 5px white; 
+            width: fit-content; 
+            margin: 20px auto; 
+            width: 400%;
+            max-width: 500px;
+        }
+        .proxy-controls button {
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        #proxyFrame {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="particles-js"></div>
+
+    <header class="header nav-container">
+        <img src="dog.png" alt="Image" class="header-img">
+        <h1 class="header-text">Marko's Classroom</h1>
+        <button onclick="location.href='../index.html'">Back</button>
+    </header>
+
+    <p>&nbsp;</p>
+    
+    <div class="container">
+        <input id="urlInput" class="input-field" type="text" placeholder="Type a URL, ex: https://example.com">
+        <button onclick="processUrl()">Go</button>
+    </div>
+
+    <div class="proxy-controls">
+        <button onclick="goBack()">⬅</button>
+        <button onclick="refreshIframe()">🔄</button>
+        <button onclick="goForward()">➡</button>
+        <button onclick="toggleFullscreen()">⛶</button>
+    </div>
+
+    <div class="embed-container" id="embedWrapper">
+        <iframe id="proxyFrame"></iframe>
+    </div>
+
+    <div id="feedback" class="blocked-message" style="display: none;"></div>
+    <div id="popup" class="popup-message">
+        <p>The website <span id="blocked-site-name"></span> is blocked. This is probably due to restrictions from the provider.</p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        let blockedDomains = [];
+        let historyStack = [];
+        let historyIndex = -1;
+    
+        async function fetchBlockedDomains() {
+            try {
+                const response = await fetch("https://raw.githubusercontent.com/encryptedsecurity/work/refs/heads/main/websitesblocked.txt");
+                const text = await response.text();
+                blockedDomains = text.split(/\r?\n/).filter(Boolean);
+                console.log("✅ Blocked Domains Loaded:", blockedDomains);
+            } catch (error) {
+                console.error("❌ Failed to fetch blocked domains:", error);
+            }
+        }
+    
+        function getQueryParameter(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
+        }
+    
+        window.onload = async function () {
+            try {
+                console.log("🚀 Proxy page loaded.");
+    
+                await fetchBlockedDomains();
+    
+                const searchQuery = getQueryParameter("search");
+                console.log("🔎 Search Query:", searchQuery);
+    
+                if (searchQuery) {
+                    const decodedUrl = decodeURIComponent(searchQuery);
+                    console.log("🌍 Decoded URL:", decodedUrl);
+    
+                    const urlInput = document.getElementById("urlInput");
+                    if (urlInput) {
+                        urlInput.value = decodedUrl;
+                    } else {
+                        console.error("⚠ URL input field not found!");
+                    }
+    
+                    setTimeout(() => openIframe(decodedUrl), 500);
+                } else {
+                    console.warn("⚠ No search query found in URL.");
+                }
+            } catch (error) {
+                console.error("❌ Error in window.onload:", error);
+            }
+        };
+    
+        function openIframe(embedUrl) {
+            console.log("📌 Attempting to load into iframe:", embedUrl);
+            const iframe = document.getElementById("proxyFrame");
+            const wrapper = document.getElementById("embedWrapper");
+    
+            if (!iframe) {
+                console.error("❌ Iframe element not found!");
+                return;
+            }
+    
+            iframe.src = `https://server-node.rpy.us/embed.html#${embedUrl}`;
+            wrapper.style.display = "block";
+            console.log("✅ Iframe src set to:", iframe.src);
+        }
+    
+        function processUrl() {
+            const input = document.getElementById("urlInput").value.trim();
+            const feedbackElement = document.getElementById("feedback");
+    
+            console.log("🔍 Processing URL:", input);
+    
+            if (!input.startsWith("http://") && !input.startsWith("https://")) {
+                feedbackElement.style.display = "block";
+                feedbackElement.textContent = "⚠ Invalid URL! Please start with 'http://' or 'https://'.";
+                return;
+            }
+    
+            if (isBlocked(input)) {
+                feedbackElement.style.display = "none";
+                showPopup(input);
+                return;
+            }
+    
+            feedbackElement.style.display = "none";
+            openIframe(input);
+        }
+    
+        function isBlocked(url) {
+            try {
+                const parsedUrl = new URL(url.startsWith("http") ? url : `https://${url}`);
+                return blockedDomains.some(domain => parsedUrl.hostname.includes(domain));
+            } catch (error) {
+                console.error("❌ Invalid URL:", error);
+                return false;
+            }
+        }
+    
+        function goBack() {
+            if (historyIndex > 0) {
+                historyIndex--;
+                openIframe(historyStack[historyIndex]);
+            }
+        }
+    
+        function goForward() {
+            if (historyIndex < historyStack.length - 1) {
+                historyIndex++;
+                openIframe(historyStack[historyIndex]);
+            }
+        }
+    
+        function refreshIframe() {
+            const iframe = document.getElementById("proxyFrame");
+            console.log("🔄 Refreshing iframe:", iframe.src);
+            iframe.src = iframe.src; // Refresh iframe
+        }
+    
+        function toggleFullscreen() {
+            const iframe = document.getElementById("proxyFrame");
+    
+            if (!document.fullscreenElement) {
+                if (iframe.requestFullscreen) {
+                    iframe.requestFullscreen();
+                } else if (iframe.mozRequestFullScreen) {
+                    iframe.mozRequestFullScreen();
+                } else if (iframe.webkitRequestFullscreen) {
+                    iframe.webkitRequestFullscreen();
+                } else if (iframe.msRequestFullscreen) {
+                    iframe.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+    
+        function showPopup(url) {
+            const popup = document.getElementById("popup");
+            const siteName = document.getElementById("blocked-site-name");
+            siteName.textContent = new URL(url).hostname;
+            popup.style.display = "block";
+        }
+    
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+    
+        document.getElementById("urlInput").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                processUrl();
+            }
+        });
+    </script>
+    
+
+    <p>&nbsp;</p>
+    
+    <div class="container center-container">
+        <p class="center">The proxy is a little broken. If it says 404, try pressing refresh. Otherwise, retype the URL (Please add http:// or https://). Also google might not work and the default language might not be english.</p>
+    </div>
+</body>
+
+<footer>
+    <p class="footer-text">&copy; 2025 Marko Vityk</p>
+</footer>
+
+</html>
