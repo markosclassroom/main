@@ -83,75 +83,64 @@
     </div>
 
     <script>
-        let blockedDomains = [];
         let historyStack = [];
         let historyIndex = -1;
-    
-        async function fetchBlockedDomains() {
-            try {
-                const response = await fetch("https://raw.githubusercontent.com/encryptedsecurity/work/refs/heads/main/websitesblocked.txt");
-                const text = await response.text();
-                blockedDomains = text.split(/\r?\n/).filter(Boolean);
-                console.log("✅ Blocked Domains Loaded:", blockedDomains);
-            } catch (error) {
-                console.error("❌ Failed to fetch blocked domains:", error);
-            }
-        }
     
         function getQueryParameter(name) {
             const params = new URLSearchParams(window.location.search);
             return params.get(name);
         }
     
-        window.onload = async function () {
-            try {
-                console.log("🚀 Proxy page loaded.");
+        window.onload = function () {
+            console.log("🚀 Proxy page loaded.");
     
-                await fetchBlockedDomains();
+            const searchQuery = getQueryParameter("search");
+            console.log("Search Query:", searchQuery);
     
-                const searchQuery = getQueryParameter("search");
-                console.log("🔎 Search Query:", searchQuery);
+            if (searchQuery) {
+                const decodedUrl = decodeURIComponent(searchQuery);
+                console.log("Decoded URL:", decodedUrl);
     
-                if (searchQuery) {
-                    const decodedUrl = decodeURIComponent(searchQuery);
-                    console.log("🌍 Decoded URL:", decodedUrl);
-    
-                    const urlInput = document.getElementById("urlInput");
-                    if (urlInput) {
-                        urlInput.value = decodedUrl;
-                    } else {
-                        console.error("⚠ URL input field not found!");
-                    }
-    
-                    setTimeout(() => openIframe(decodedUrl), 500);
+                const urlInput = document.getElementById("urlInput");
+                if (urlInput) {
+                    urlInput.value = decodedUrl;
                 } else {
-                    console.warn("⚠ No search query found in URL.");
+                    console.error("⚠ URL input field not found!");
                 }
-            } catch (error) {
-                console.error("❌ Error in window.onload:", error);
+    
+                setTimeout(() => openIframe(decodedUrl), 500);
+            } else {
+                console.warn("No search query found in URL.");
             }
         };
     
         function openIframe(embedUrl) {
-            console.log("📌 Attempting to load into iframe:", embedUrl);
+            console.log("Attempting to load into iframe:", embedUrl);
             const iframe = document.getElementById("proxyFrame");
             const wrapper = document.getElementById("embedWrapper");
     
             if (!iframe) {
-                console.error("❌ Iframe element not found!");
+                console.error("Iframe element not found!");
                 return;
             }
     
-            iframe.src = `https://server-node.rpy.us/embed.html#${embedUrl}`;
+            iframe.src = `http://localhost:8080/uv/service/${btoa(embedUrl)}`;
             wrapper.style.display = "block";
-            console.log("✅ Iframe src set to:", iframe.src);
+            console.log("Iframe src set to:", iframe.src);
+    
+            // Update history
+            if (historyStack[historyIndex] !== embedUrl) {
+                historyStack = historyStack.slice(0, historyIndex + 1);
+                historyStack.push(embedUrl);
+                historyIndex++;
+            }
         }
     
         function processUrl() {
             const input = document.getElementById("urlInput").value.trim();
             const feedbackElement = document.getElementById("feedback");
     
-            console.log("🔍 Processing URL:", input);
+            console.log("Processing URL:", input);
     
             if (!input.startsWith("http://") && !input.startsWith("https://")) {
                 feedbackElement.style.display = "block";
@@ -159,24 +148,8 @@
                 return;
             }
     
-            if (isBlocked(input)) {
-                feedbackElement.style.display = "none";
-                showPopup(input);
-                return;
-            }
-    
             feedbackElement.style.display = "none";
             openIframe(input);
-        }
-    
-        function isBlocked(url) {
-            try {
-                const parsedUrl = new URL(url.startsWith("http") ? url : `https://${url}`);
-                return blockedDomains.some(domain => parsedUrl.hostname.includes(domain));
-            } catch (error) {
-                console.error("❌ Invalid URL:", error);
-                return false;
-            }
         }
     
         function goBack() {
@@ -195,7 +168,7 @@
     
         function refreshIframe() {
             const iframe = document.getElementById("proxyFrame");
-            console.log("🔄 Refreshing iframe:", iframe.src);
+            console.log("Refreshing iframe:", iframe.src);
             iframe.src = iframe.src; // Refresh iframe
         }
     
@@ -217,17 +190,6 @@
                     document.exitFullscreen();
                 }
             }
-        }
-    
-        function showPopup(url) {
-            const popup = document.getElementById("popup");
-            const siteName = document.getElementById("blocked-site-name");
-            siteName.textContent = new URL(url).hostname;
-            popup.style.display = "block";
-        }
-    
-        function closePopup() {
-            document.getElementById("popup").style.display = "none";
         }
     
         document.getElementById("urlInput").addEventListener("keydown", function(event) {
