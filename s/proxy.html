@@ -4,21 +4,25 @@
     <meta charset="UTF-8">
     <meta name="author" content="Marko Vityk">
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QYPYXGT59Q"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYPYXGT59Q"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'G-QYPYXGT59Q');
-</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3761613789479778"
+      gtag('config', 'G-QYPYXGT59Q');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3761613789479778"
      crossorigin="anonymous"></script>
     <title>Marko's Classroom - Proxy</title>
     <link rel="icon" href="dog.png">
     <link rel="stylesheet" href="../main.css">
     <script src="particles.js"></script>
     <script defer src="script.js"></script>
+
+    <script src="uv/uv.bundle.js"></script>
+    <script src="uv/uv.config.js"></script>
+    <script src="uv/uv.sw.js"></script>
 
     <style>
         .container {
@@ -81,7 +85,6 @@
         <p>The website <span id="blocked-site-name"></span> is blocked. This is probably due to restrictions from the provider.</p>
         <button onclick="closePopup()">Close</button>
     </div>
-
     <script>
         let historyStack = [];
         let historyIndex = -1;
@@ -95,104 +98,118 @@
             console.log("🚀 Proxy page loaded.");
     
             const searchQuery = getQueryParameter("search");
-            console.log("Search Query:", searchQuery);
+            console.log("🔎 Search Query:", searchQuery);
     
             if (searchQuery) {
                 const decodedUrl = decodeURIComponent(searchQuery);
-                console.log("Decoded URL:", decodedUrl);
+                console.log("🌍 Decoded URL:", decodedUrl);
     
                 const urlInput = document.getElementById("urlInput");
                 if (urlInput) {
                     urlInput.value = decodedUrl;
+                    openIframe(decodedUrl);
                 } else {
                     console.error("⚠ URL input field not found!");
                 }
-    
-                setTimeout(() => openIframe(decodedUrl), 500);
             } else {
-                console.warn("No search query found in URL.");
+                console.warn("⚠ No search query found in URL.");
             }
         };
     
         function openIframe(embedUrl) {
-            console.log("Attempting to load into iframe:", embedUrl);
+            console.log("📌 Attempting to load into iframe:", embedUrl);
             const iframe = document.getElementById("proxyFrame");
             const wrapper = document.getElementById("embedWrapper");
     
             if (!iframe) {
-                console.error("Iframe element not found!");
+                console.error("❌ Iframe element not found!");
                 return;
             }
     
-            iframe.src = `http://localhost:8080/uv/service/${btoa(embedUrl)}`;
-            wrapper.style.display = "block";
-            console.log("Iframe src set to:", iframe.src);
+            if (!embedUrl || embedUrl.trim() === "") {
+                console.error("❌ Invalid URL provided:", embedUrl);
+                return;
+            }
     
-            // Update history
-            if (historyStack[historyIndex] !== embedUrl) {
-                historyStack = historyStack.slice(0, historyIndex + 1);
-                historyStack.push(embedUrl);
-                historyIndex++;
+            try {
+                const encodedUrl = __uv$config.encodeUrl(embedUrl); // Ultraviolet-style encoding
+                iframe.src = `https://bed.udalyonka.com/uv/service/${encodedUrl}`;
+                wrapper.style.display = "block";
+                console.log("✅ Iframe src set to:", iframe.src);
+    
+                iframe.onload = () => {
+                    if (iframe.contentDocument.body.innerHTML.includes("Server Error")) {
+                        console.error("❌ Server returned an error.");
+                        alert("Failed to load the requested URL. Please try again.");
+                    }
+                };
+    
+                // Update history
+                if (historyStack[historyIndex] !== embedUrl) {
+                    historyStack = historyStack.slice(0, historyIndex + 1);
+                    historyStack.push(embedUrl);
+                    historyIndex++;
+                }
+            } catch (error) {
+                console.error("❌ Failed to encode URL:", error);
             }
         }
     
         function processUrl() {
-            const input = document.getElementById("urlInput").value.trim();
+            const input = document.getElementById("urlInput");
             const feedbackElement = document.getElementById("feedback");
     
-            console.log("Processing URL:", input);
+            if (!input) {
+                console.error("⚠ URL input field not found!");
+                return;
+            }
     
-            if (!input.startsWith("http://") && !input.startsWith("https://")) {
+            const url = input.value.trim();
+            console.log("🔍 Processing URL:", url);
+    
+            if (!url.startsWith("http://") && !url.startsWith("https://")) {
                 feedbackElement.style.display = "block";
                 feedbackElement.textContent = "⚠ Invalid URL! Please start with 'http://' or 'https://'.";
                 return;
             }
     
             feedbackElement.style.display = "none";
-            openIframe(input);
-        }
-    
-        function goBack() {
-            if (historyIndex > 0) {
-                historyIndex--;
-                openIframe(historyStack[historyIndex]);
-            }
-        }
-    
-        function goForward() {
-            if (historyIndex < historyStack.length - 1) {
-                historyIndex++;
-                openIframe(historyStack[historyIndex]);
-            }
+            openIframe(url);
         }
     
         function refreshIframe() {
             const iframe = document.getElementById("proxyFrame");
-            console.log("Refreshing iframe:", iframe.src);
-            iframe.src = iframe.src; // Refresh iframe
+            if (iframe) {
+                iframe.contentWindow.location.reload();
+            }
+        }
+    
+        function goBack() {
+            const iframe = document.getElementById("proxyFrame");
+            if (iframe && iframe.contentWindow.history.length > 0) {
+                iframe.contentWindow.history.back();
+            }
+        }
+    
+        function goForward() {
+            const iframe = document.getElementById("proxyFrame");
+            if (iframe && iframe.contentWindow.history.length > 0) {
+                iframe.contentWindow.history.forward();
+            }
         }
     
         function toggleFullscreen() {
             const iframe = document.getElementById("proxyFrame");
-    
-            if (!document.fullscreenElement) {
-                if (iframe.requestFullscreen) {
-                    iframe.requestFullscreen();
-                } else if (iframe.mozRequestFullScreen) {
-                    iframe.mozRequestFullScreen();
-                } else if (iframe.webkitRequestFullscreen) {
-                    iframe.webkitRequestFullscreen();
-                } else if (iframe.msRequestFullscreen) {
-                    iframe.msRequestFullscreen();
-                }
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
             }
         }
     
-        document.getElementById("urlInput").addEventListener("keydown", function(event) {
+        document.getElementById("urlInput").addEventListener("keydown", function (event) {
             if (event.key === "Enter") {
                 event.preventDefault();
                 processUrl();
