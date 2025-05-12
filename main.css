@@ -15,7 +15,7 @@ html {
     position: fixed;
     bottom: 10px; /* Adjust if needed */
     left: 10px; /* Adjust if needed */
-    font-size: 14px;
+    font-size: 28px;
     color: whitesmoke;
 }
 
@@ -287,94 +287,3 @@ button:hover {
         font-weight: bold;
         text-align: center;
     }
-    
-    
-body.uv-theme {
-    background-color: #2f2f6d;  /* Dark ultraviolet background */
-    color: whitesmoke;
-}
-
-/* Header */
-body.uv-theme .header {
-    background-color: #3b3b9d;  /* UV purple header */
-}
-
-/* Button Styles */
-body.uv-theme button {
-    background-color: #5b5b9f;
-    color: white;
-    box-shadow: 0 0 10px #7070c0;
-}
-
-body.uv-theme button:hover {
-    background-color: #7070c0;
-    box-shadow: 0 0 15px #9a9ad0;
-}
-
-/* Input fields */
-body.uv-theme .input-field {
-    background-color: #5b5b9f;
-    border: 2px solid #1a1a1acc;
-    color: white;
-}
-
-body.uv-theme .input-field:hover {
-    background-color: #7070c0;
-}
-
-body.uv-theme .input-field:focus {
-    background-color: white;
-    color: black;
-    border-color: #1a1a1acc;
-}
-
-/* Embed container */
-body.uv-theme .embed-container {
-    background-color: #2a2b62;
-    border: 2px solid #4e4f92;
-}
-
-body.uv-theme .embed-container iframe {
-    border-radius: 15px;
-}
-
-/* Additional Adjustments */
-body.uv-theme .footer-text {
-    color: #c0c0f8;
-}
-
-body.uv-theme .popup-message {
-    background-color: rgba(44, 44, 77, 0.9);
-    border-radius: 15px;
-}
-
-body.uv-theme .proxy-controls button {
-    background-color: #5b5b9f;
-    color: white;
-}
-
-body.uv-theme .proxy-controls button:hover {
-    background-color: #7070c0;
-}
-
-/* UV-focused adjustments to elements */
-body.uv-theme .nav-container {
-    background-color: #333377;
-    padding: 10px 20px;
-    border-radius: 20px;
-}
-
-body.uv-theme .nav-button, .icon-button {
-    color: white;
-}
-
-body.uv-theme .game-button {
-    background-color: #3a3b7f;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-body.uv-theme .game-button:hover {
-    background-color: #5a5bb2;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-}
