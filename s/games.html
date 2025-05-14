@@ -37,8 +37,9 @@
         }
         .game-grid {
             display: grid;
-            flex-wrap: wrap;
-            justify-content: center;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            padding: 20px;
         }
         .game-button {
             text-align: center;

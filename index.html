@@ -36,29 +36,38 @@
 
 <body>
     <div id="particles-js"></div>
+    <!-- Simplified layout to fix button alignment -->
     <header class="header nav-container">
-        <img src="/s/dog.png" alt="Image" class="header-img">
+        <img src="/s/dog.png" alt="Logo" class="header-img">
         <h1 class="header-text">Marko's Classroom</h1>
     </header>
 
-    <div class="container center-container"> 
-        <button class="center-button" onclick="location.href='/s/games.html'">Games</button>
-        <button class="center-button" onclick="location.href='/s/proxy.html'">Proxy</button>
-        <button class="center-button" onclick="location.href='/s/more.html'">More</button>
-    </div>
-    <p class="small">&nbsp;</p>
-    <div class="search-container container">
-            <input class="input-field" type="text" id="searchBar" placeholder="Search in Proxy...">
-            <button onclick="searchProxy()">Search</button>
+    <div class="container center-container" style="text-align: center;">
+        <div class="main-text">
+            <h2>Welcome to Marko's Classroom</h2>
+            <p>Explore games, use the proxy, and discover more resources!</p>
         </div>
-    <p class="small">&nbsp;</p>
+
+        <div class="button-container" style="display: flex; justify-content: center; gap: 10px;">
+            <button class="center-button" onclick="location.href='/s/games.html'">Games</button>
+            <button class="center-button" onclick="location.href='/s/proxy.html'">Proxy</button>
+            <button class="center-button" onclick="location.href='/s/more.html'">More</button>
+        </div>
+    </div>
+
+    <!-- Updated search bar for a cleaner look -->
+    <div class="search-container container">
+        <input class="input-field" type="text" id="searchBar" placeholder="Search in Proxy...">
+        <button class="search-button" onclick="searchProxy()">Search</button>
+    </div>
+
     <div class="container">
         <button class="center-button" onclick="window.open('https://discord.gg/BBcHrUYYNv', '_blank')">Discord</button>
         <button class="center-button" onclick="window.open('https://docs.google.com/document/d/1uYzV3qtnhY9K1rueLH5SVbLpyBikvipcQgAgpFMUsss/edit?usp=sharing', '_blank')">Links</button>
     </div>
-    </div>
 </body>
+<!-- Updated footer for a more professional look -->
 <footer>
-    <p class="footer-text">&copy;2025 Marko Vityk, Contact administrator@marko.win for any suggestions/inquiries</p>
+    <p class="footer-text">&copy;2025 Marko Vityk | Contact: <a href="mailto:administrator@marko.win">administrator@marko.win</a></p>
 </footer>
 </html>

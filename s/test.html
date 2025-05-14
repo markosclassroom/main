@@ -14,7 +14,7 @@
   <meta name="author" content="Marko Vityk">
   <title>Marko's Classroom</title>
   <link rel="icon" href="../dog.png">
-  <link rel="stylesheet" href="../../main.css">
+  <link rel="stylesheet" href="/main.css">
   <script src="../particles.js"></script>
   <script defer src="../script.js"></script>
   <style>
@@ -72,118 +72,22 @@
   <div id="particles-js"></div>
 
   <header class="header nav-container">
-    <img src="../dog.png" alt="Image" class="header-img">
+    <img src="/s/dog.png" alt="Logo" class="header-img">
     <h1 class="header-text">Marko's Classroom</h1>
-    <button onclick="location.href='../games.html'">Back</button>
+    <nav class="nav">
+        <button class="nav-button" onclick="location.href='/s/games.html'">Games</button>
+        <button class="nav-button" onclick="location.href='/s/proxy.html'">Proxy</button>
+        <button class="nav-button" onclick="location.href='/s/more.html'">More</button>
+    </nav>
   </header>
 
-  <p>&nbsp;</p>
-
-  <!-- Only refresh and fullscreen controls remain -->
-  <div class="proxy-controls">
-    <button onclick="refreshIframe()">🔄</button>
-    <button onclick="toggleFullscreen()">⛶</button>
+  <div class="container center-container">
+    <h2>Test Page</h2>
+    <p>This is a test page with the new design.</p>
   </div>
 
-  <div class="embed-container" id="embedWrapper">
-    <iframe id="proxyFrame"></iframe>
-  </div>
-
-  <div id="feedback" class="blocked-message" style="display: none;"></div>
-  <div id="popup" class="popup-message">
-    <p>The website <span id="blocked-site-name"></span> is blocked. This is probably due to restrictions from the provider.</p>
-    <button onclick="closePopup()">Close</button>
-  </div>
-
-  <script>
-    let blockedDomains = [];
-    let historyStack = [];
-    let historyIndex = -1;
-
-    async function fetchBlockedDomains() {
-      try {
-        const response = await fetch("https://raw.githubusercontent.com/encryptedsecurity/work/refs/heads/main/websitesblocked.txt");
-        const text = await response.text();
-        blockedDomains = text.split(/\r?\n/).filter(Boolean);
-        console.log("Blocked Domains Loaded:", blockedDomains);
-      } catch (error) {
-        console.error("Failed to fetch blocked domains:", error);
-      }
-    }
-
-    function isBlocked(url) {
-      try {
-        const parsedUrl = new URL(url.startsWith("http") ? url : `https://${url}`);
-        return blockedDomains.some(domain => parsedUrl.hostname.includes(domain));
-      } catch (error) {
-        console.error("Invalid URL:", error);
-        return false;
-      }
-    }
-
-    // Open the specified URL in the local HTML embed
-    function openIframe(embedUrl) {
-      const iframe = document.getElementById("proxyFrame");
-      const wrapper = document.getElementById("embedWrapper");
-
-      // Instead of using a website embed, load the local HTML file (embed.html)
-      iframe.src = "games.html";
-      wrapper.style.display = "block";
-
-      if (historyStack[historyIndex] !== embedUrl) {
-        historyStack = historyStack.slice(0, historyIndex + 1);
-        historyStack.push(embedUrl);
-        historyIndex++;
-      }
-    }
-
-    function refreshIframe() {
-      const iframe = document.getElementById("proxyFrame");
-      iframe.src = iframe.src; // Refresh the iframe
-    }
-
-    function toggleFullscreen() {
-      const iframe = document.getElementById("proxyFrame");
-      if (!document.fullscreenElement) {
-        if (iframe.requestFullscreen) {
-          iframe.requestFullscreen();
-        } else if (iframe.mozRequestFullScreen) {
-          iframe.mozRequestFullScreen();
-        } else if (iframe.webkitRequestFullscreen) {
-          iframe.webkitRequestFullscreen();
-        } else if (iframe.msRequestFullscreen) {
-          iframe.msRequestFullscreen();
-        }
-      } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-        }
-      }
-    }
-
-    function showPopup(url) {
-      const popup = document.getElementById("popup");
-      const siteName = document.getElementById("blocked-site-name");
-      siteName.textContent = new URL(url).hostname;
-      popup.style.display = "block";
-    }
-
-    function closePopup() {
-      document.getElementById("popup").style.display = "none";
-    }
-
-    window.onload = function() {
-      fetchBlockedDomains();
-      // Automatically load embed.html (or your embed content) on page load.
-      openIframe("https://1v1.lol");
-    };
-  </script>
-
-  <p>&nbsp;</p>
-  
+  <footer>
+    <p class="footer-text">&copy;2025 Marko Vityk | Contact: <a href="mailto:administrator@marko.win">administrator@marko.win</a></p>
+  </footer>
 </body>
-
-<footer>
-  <p class="footer-text">&copy; 2025 Marko Vityk</p>
-</footer>
 </html>
