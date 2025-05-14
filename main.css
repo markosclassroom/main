@@ -19,6 +19,13 @@ html {
     color: whitesmoke;
 }
 
+.shoutout-text{
+    font-size: 20px;
+    position: fixed;
+    justify-content: center; 
+    align-items: center;
+}
+
 #particles-js {
     position: fixed;
     width: 100%;
