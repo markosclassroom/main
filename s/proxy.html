@@ -20,9 +20,9 @@
     <script src="particles.js"></script>
     <script defer src="script.js"></script>
 
-    <script src="/uv/uv.bundle.js"></script>
-    <script src="/uv/uv.config.js"></script>
-    <script src="/uv/uv.sw.js"></script>
+    <script src="../uv/uv.bundle.js"></script>
+    <script src="../uv/uv.config.js"></script>
+    <script src="../uv/uv.sw.js"></script>
 
     <style>
         .container {
@@ -52,13 +52,80 @@
         }
     </style>
     <script>  
-    if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker.register("/uv/sw.js", {
-            scope: __uv$config.prefix,
-          });
-        });
-      }
+        // Ensure bare-mux workerPath is set in uvStorage
+        async function ensureBareMuxPath() {
+            const cache = await caches.open('uv-storage');
+            const response = await cache.match('bare-mux-workerPath');
+            if (!response) {
+                const newResponse = new Response('/uv/bare/');
+                await cache.put('bare-mux-workerPath', newResponse);
+            }
+        }
+
+        ensureBareMuxPath().catch(console.error);
+
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("/uv/uv.sw.js", {
+                    scope: '/uv/'
+                }).then(reg => console.log('✅ Service Worker registered:', reg.scope))
+                  .catch(err => console.error('❌ Service Worker registration failed:', err));
+            });
+        }
+
+        // Ensure UV is properly initialized
+        window.onload = function () {
+            if (!window.Ultraviolet) {
+                console.error('Ultraviolet is not initialized. Ensure uv.bundle.js is loaded correctly.');
+                return;
+            }
+
+            try {
+                const uv = new UVServiceWorker();
+                uv.init({
+                    prefix: '/uv/',
+                    bare: '/uv/bare/',
+                    encodeUrl: UV.encodeUrl,
+                    decodeUrl: UV.decodeUrl
+                });
+            } catch (error) {
+                console.error('Error initializing UVServiceWorker:', error);
+            }
+
+            // Automatically load the default URL
+            openIframe(defaultUrl);
+
+            const searchQuery = getQueryParameter("search");
+            if (searchQuery) {
+                const decodedUrl = decodeURIComponent(searchQuery);
+                document.getElementById("urlInput").value = decodedUrl;
+                openIframe(decodedUrl);
+            }
+        };
+
+        // Ensure uv object is defined before using it
+        function openIframe(embedUrl) {
+            if (typeof uv === 'undefined') {
+                console.error('uv is not defined. Ensure uv.bundle.js is loaded correctly.');
+                return;
+            }
+
+            const iframe = document.getElementById("proxyFrame");
+            const wrapper = document.getElementById("embedWrapper");
+
+            if (!embedUrl.startsWith("http://") && !embedUrl.startsWith("https://")) {
+                alert("Invalid URL format.");
+                return;
+            }
+
+            const encodedUrl = uv.encodeUrl(embedUrl);
+            iframe.src = `/uv/service/${encodedUrl}`;
+            wrapper.style.display = "block";
+
+            historyStack = historyStack.slice(0, historyIndex + 1);
+            historyStack.push(embedUrl);
+            historyIndex++;
+        }
     </script>
 </head>
 
@@ -95,79 +162,15 @@
         <button onclick="closePopup()">Close</button>
     </div>
     <script>
+        // Default URL to load if no input is provided
+        const defaultUrl = "https://marko.win";
+
         let historyStack = [];
         let historyIndex = -1;
-    
+
         function getQueryParameter(name) {
             const params = new URLSearchParams(window.location.search);
             return params.get(name);
-        }
-    
-        window.onload = function () {
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/uv/uv.sw.js', { scope: '/uv/' })
-                    .then(reg => console.log('✅ SW registered:', reg.scope))
-                    .catch(err => console.error('❌ SW registration failed:', err));
-            }
-    
-            const searchQuery = getQueryParameter("search");
-            if (searchQuery) {
-                const decodedUrl = decodeURIComponent(searchQuery);
-                document.getElementById("urlInput").value = decodedUrl;
-                openIframe(decodedUrl);
-            }
-        };
-    
-        function openIframe(embedUrl) {
-            const iframe = document.getElementById("proxyFrame");
-            const wrapper = document.getElementById("embedWrapper");
-    
-            if (!embedUrl.startsWith("http://") && !embedUrl.startsWith("https://")) {
-                alert("Invalid URL format.");
-                return;
-            }
-    
-            const encodedUrl = __uv$config.encodeUrl(embedUrl);
-            iframe.src = `http://localhost:8080/uv/service/${encodedUrl}`;
-            wrapper.style.display = "block";
-    
-            historyStack = historyStack.slice(0, historyIndex + 1);
-            historyStack.push(embedUrl);
-            historyIndex++;
-        }
-    
-        function processUrl() {
-            const url = document.getElementById("urlInput").value.trim();
-            if (!url.startsWith("http://") && !url.startsWith("https://")) {
-                alert("URL must start with http:// or https://");
-                return;
-            }
-            openIframe(url);
-        }
-    
-        function refreshIframe() {
-            document.getElementById("proxyFrame").contentWindow.location.reload();
-        }
-    
-        function goBack() {
-            if (historyIndex > 0) {
-                historyIndex--;
-                openIframe(historyStack[historyIndex]);
-            }
-        }
-    
-        function goForward() {
-            if (historyIndex < historyStack.length - 1) {
-                historyIndex++;
-                openIframe(historyStack[historyIndex]);
-            }
-        }
-    
-        function toggleFullscreen() {
-            const iframe = document.getElementById("proxyFrame");
-            if (iframe.requestFullscreen) iframe.requestFullscreen();
-            else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
-            else if (iframe.msRequestFullscreen) iframe.msRequestFullscreen();
         }
     
         document.getElementById("urlInput").addEventListener("keydown", function (event) {
@@ -176,6 +179,37 @@
                 processUrl();
             }
         });
+
+        function processUrl() {
+            const url = document.getElementById("urlInput").value.trim() || defaultUrl;
+            openIframe(url);
+        }
+
+        function refreshIframe() {
+            const iframe = document.getElementById("proxyFrame");
+            iframe.src = iframe.src; // Refresh the iframe
+        }
+
+        function goBack() {
+            if (historyIndex > 0) {
+                historyIndex--;
+                openIframe(historyStack[historyIndex]);
+            }
+        }
+
+        function goForward() {
+            if (historyIndex < historyStack.length - 1) {
+                historyIndex++;
+                openIframe(historyStack[historyIndex]);
+            }
+        }
+
+        function toggleFullscreen() {
+            const iframe = document.getElementById("proxyFrame");
+            if (iframe.requestFullscreen) iframe.requestFullscreen();
+            else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
+            else if (iframe.msRequestFullscreen) iframe.msRequestFullscreen();
+        }
     </script>
     
     

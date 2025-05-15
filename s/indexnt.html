@@ -45,12 +45,17 @@
     <div class="container center-container" style="text-align: center;">
         <div class="main-text">
             <h2>Welcome to Marko's Classroom</h2>
-            <p>Explore (community made) Games!</p>
+            <p>Explore games, use the proxy, and discover more resources!</p>
         </div>
 
         <div class="button-container" style="display: flex; justify-content: center; gap: 10px;">
             <button class="center-button" onclick="location.href='/s/games.html'">Games</button>
-            <button class="center-button" onclick="location.href='/s/more.html'">More</button>
+            <button class="center-button" onclick="location.href='/s/proxy.html'">Proxy</button>
+            <button class="center-button" onclick="location.href='/s/more.html'">More or less</button>
+        </div>
+        <div class="search-container">
+            <input class="input-field" type="text" id="searchBar" placeholder="Search in Proxy...">
+            <button class="search-button" onclick="searchProxy()">Search</button>
         </div>
         <div class="button-container" style="display: flex; justify-content: center; gap: 10px;">
             <button class="center-button" onclick="window.open('https://discord.gg/BBcHrUYYNv', '_blank')">Discord</button>

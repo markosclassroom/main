@@ -11,12 +11,48 @@ html {
     font-size: 0%; 
 }
 
+
+    .highlight-effect {
+        position: relative;
+        background: none;
+        color: inherit;
+    }
+
+    .highlight-effect::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 200%;
+        height: 100%;
+        background: radial-gradient(ellipse at center, rgba(51, 204, 255, 0.4), transparent 70%);
+        border-radius: 50% / 30%;
+        z-index: -1;
+        animation: expand-fade 2s ease-out infinite;
+    }
+    
+
+    @keyframes expand-fade {
+        0% {
+            width: 0;
+            height: 0;
+            opacity: 1;
+        }
+        100% {
+            width: 300px;
+            height: 300px;
+            opacity: 0;
+        }
+    }
+
+
 .footer-text {
     position: fixed;
     bottom: 10px; /* Adjust if needed */
     left: 10px; /* Adjust if needed */
-    font-size: 14px;
-    color: whitesmoke;
+    font-size: 16px;
+    color: white;
 }
 
 .shoutout-text{
@@ -24,6 +60,8 @@ html {
     position: fixed;
     justify-content: center; 
     align-items: center;
+  
+    
 }
 
 #particles-js {
