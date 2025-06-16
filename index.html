@@ -24,10 +24,10 @@
     <script defer src="/s/script.js"></script>
 
     <script>
-        function searchProxy() {
+        function searchGames() {
             let query = document.getElementById('searchBar').value.trim();
             if (query) {
-                window.location.href = `/s/proxy.html?search=${encodeURIComponent(query)}`;
+                window.location.href = `/s/games.html?search=${encodeURIComponent(query)}`;
             }
         }
     </script>
@@ -43,12 +43,16 @@
     <div class="container center-container" style="text-align: center;">
         <div class="main-text">
             <h2>Welcome to Marko's Classroom</h2>
-            <p>Explore (community made ripooff) Games!</p>
+            <p>Explore community made ripoff games!</p>
         </div>
 
         <div class="button-container" style="display: flex; justify-content: center; gap: 10px;">
             <button class="center-button" onclick="location.href='/s/games.html'">Games</button>
-            <button class="center-button" onclick="location.href='/s/more.html'">Shoutout</button>
+            <button class="center-button" onclick="location.href='/s/more.html'">Shoutouts</button>
+        </div>
+        <div class="search-container">
+            <input class="input-field" type="text" id="searchBar" placeholder="Search in games..." onkeydown="if(event.key==='Enter'){searchGames();}">
+            <button class="search-button" onclick="searchGames()">Search Games</button>
         </div>
         <div class="button-container" style="display: flex; justify-content: center; gap: 10px;">
             <button class="center-button" onclick="window.open('https://discord.gg/BBcHrUYYNv', '_blank')">Discord</button>

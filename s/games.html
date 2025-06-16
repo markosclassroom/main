@@ -60,6 +60,17 @@
                     }
                 }
             }
+
+            // New: Read search param from URL and trigger search
+            window.addEventListener('DOMContentLoaded', function() {
+                const params = new URLSearchParams(window.location.search);
+                const search = params.get('search');
+                if (search) {
+                    const searchBar = document.getElementById('searchBar');
+                    searchBar.value = search;
+                    searchGames();
+                }
+            });
         </script>
 </head>
 <body>
