@@ -20,9 +20,12 @@
     <script src="particles.js"></script>
     <script defer src="script.js"></script>
 
-    <script src="../uv/uv.bundle.js"></script>
-    <script src="../uv/uv.config.js"></script>
-    <script src="../uv/uv.sw.js"></script>
+    <script>
+    // Set bare-mux-workerPath in localStorage for Ultraviolet (must be set before UV scripts load)
+    if (!localStorage.getItem('bare-mux-workerPath')) {
+        localStorage.setItem('bare-mux-workerPath', '/uv/bare/');
+    }
+    </script>
 
     <style>
         .container {
@@ -51,174 +54,126 @@
             border: none;
         }
     </style>
-    <script>  
-        // Ensure bare-mux workerPath is set in uvStorage
-        async function ensureBareMuxPath() {
-            const cache = await caches.open('uv-storage');
-            const response = await cache.match('bare-mux-workerPath');
-            if (!response) {
-                const newResponse = new Response('/uv/bare/');
-                await cache.put('bare-mux-workerPath', newResponse);
-            }
-        }
-
-        ensureBareMuxPath().catch(console.error);
-
-        if ("serviceWorker" in navigator) {
-            window.addEventListener("load", () => {
-                navigator.serviceWorker.register("/uv/uv.sw.js", {
-                    scope: '/uv/'
-                }).then(reg => console.log('✅ Service Worker registered:', reg.scope))
-                  .catch(err => console.error('❌ Service Worker registration failed:', err));
-            });
-        }
-
-        // Ensure UV is properly initialized
-        window.onload = function () {
-            if (!window.Ultraviolet) {
-                console.error('Ultraviolet is not initialized. Ensure uv.bundle.js is loaded correctly.');
-                return;
-            }
-
-            try {
-                const uv = new UVServiceWorker();
-                uv.init({
-                    prefix: '/uv/',
-                    bare: '/uv/bare/',
-                    encodeUrl: UV.encodeUrl,
-                    decodeUrl: UV.decodeUrl
-                });
-            } catch (error) {
-                console.error('Error initializing UVServiceWorker:', error);
-            }
-
-            // Automatically load the default URL
-            openIframe(defaultUrl);
-
-            const searchQuery = getQueryParameter("search");
-            if (searchQuery) {
-                const decodedUrl = decodeURIComponent(searchQuery);
-                document.getElementById("urlInput").value = decodedUrl;
-                openIframe(decodedUrl);
-            }
-        };
-
-        // Ensure uv object is defined before using it
-        function openIframe(embedUrl) {
-            if (typeof uv === 'undefined') {
-                console.error('uv is not defined. Ensure uv.bundle.js is loaded correctly.');
-                return;
-            }
-
-            const iframe = document.getElementById("proxyFrame");
-            const wrapper = document.getElementById("embedWrapper");
-
-            if (!embedUrl.startsWith("http://") && !embedUrl.startsWith("https://")) {
-                alert("Invalid URL format.");
-                return;
-            }
-
-            const encodedUrl = uv.encodeUrl(embedUrl);
-            iframe.src = `/uv/service/${encodedUrl}`;
-            wrapper.style.display = "block";
-
-            historyStack = historyStack.slice(0, historyIndex + 1);
-            historyStack.push(embedUrl);
-            historyIndex++;
-        }
-    </script>
 </head>
 
 <body>
     <div id="particles-js"></div>
-
     <header class="header nav-container">
         <img src="dog.png" alt="Image" class="header-img">
         <h1 class="header-text">Marko's Classroom</h1>
         <button onclick="location.href='../index.html'">Back</button>
     </header>
-
     <p>&nbsp;</p>
-    
     <div class="container">
         <input id="urlInput" class="input-field" type="text" placeholder="Type a URL, ex: https://example.com">
         <button onclick="processUrl()">Go</button>
     </div>
-
     <div class="proxy-controls">
         <button onclick="goBack()">⬅</button>
         <button onclick="refreshIframe()">🔄</button>
         <button onclick="goForward()">➡</button>
         <button onclick="toggleFullscreen()">⛶</button>
     </div>
-
     <div class="embed-container" id="embedWrapper">
         <iframe id="proxyFrame"></iframe>
     </div>
-
-    <div id="feedback" class="blocked-message" style="display: none;"></div>
-    <div id="popup" class="popup-message">
-        <p>The website <span id="blocked-site-name"></span> is blocked. This is probably due to restrictions from the provider.</p>
-        <button onclick="closePopup()">Close</button>
+    <p>&nbsp;</p>
+    <div class="container center-container">
+        <p class="center">The proxy is COOKED, just dont use it its broken.</p>
     </div>
+
+    <!-- Dynamically load UV scripts and initialize only after both are loaded -->
     <script>
-        // Default URL to load if no input is provided
-        const defaultUrl = "https://marko.win";
+    function loadScript(src) {
+        return new Promise(function(resolve, reject) {
+            var s = document.createElement('script');
+            s.src = src;
+            s.onload = function() {
+                console.log('Loaded script:', src);
+                resolve();
+            };
+            s.onerror = function(e) {
+                console.error('Failed to load script:', src, e);
+                reject(new Error('Failed to load script: ' + src));
+            };
+            document.body.appendChild(s);
+        });
+    }
 
-        let historyStack = [];
-        let historyIndex = -1;
-
-        function getQueryParameter(name) {
-            const params = new URLSearchParams(window.location.search);
-            return params.get(name);
+    // Load uv.bundle.js first, then uv.config.js, then initialize UV
+    loadScript('uv/uv.bundle.js')
+      .then(() => loadScript('uv/uv.config.js'))
+      .then(() => {
+        if (typeof UVServiceWorker === 'undefined') {
+          console.error('[UV Loader] Ultraviolet is not initialized. Ensure uv/uv.bundle.js is present and accessible.');
+          alert('Failed to load Ultraviolet core (uv.bundle.js). Check the browser console for errors and ensure the file exists at /s/uv/uv.bundle.js');
+          return;
         }
-    
-        document.getElementById("urlInput").addEventListener("keydown", function (event) {
-            if (event.key === "Enter") {
+        window.uv = new UVServiceWorker();
+        try {
+          uv.init({
+            prefix: 'https://565f866f-e416-4f8e-b270-484b4139fdd9-00-2bdmuv2kuzgqe.kirk.replit.dev/uv/',
+            bare: 'https://565f866f-e416-4f8e-b270-484b4139fdd9-00-2bdmuv2kuzgqe.kirk.replit.dev/uv/bare/',
+            encodeUrl: UV.encodeUrl,
+            decodeUrl: UV.decodeUrl
+          });
+        } catch (error) {
+          console.error('Error initializing UVServiceWorker:', error);
+        }
+
+        // Only call openIframe after uv is set and DOM is ready
+        document.addEventListener("DOMContentLoaded", function () {
+          window.processUrl = processUrl;
+          openIframe(defaultUrl);
+
+          const searchQuery = getQueryParameter("search");
+          if (searchQuery) {
+            const decodedUrl = decodeURIComponent(searchQuery);
+            document.getElementById("urlInput").value = decodedUrl;
+            openIframe(decodedUrl);
+          }
+
+          // Attach event listener for Enter key on urlInput
+          const urlInput = document.getElementById("urlInput");
+          if (urlInput) {
+            urlInput.addEventListener("keydown", function (event) {
+              if (event.key === "Enter") {
                 event.preventDefault();
                 processUrl();
-            }
+              }
+            });
+          }
         });
-
+      })
+      .catch((err) => {
+        console.error('[UV Loader] Failed to load UV scripts:', err);
+        alert('Failed to load one or more UV scripts. Check the browser console for details.');
+      });
         function processUrl() {
             const url = document.getElementById("urlInput").value.trim() || defaultUrl;
             openIframe(url);
         }
-
-        function refreshIframe() {
+        function openIframe(url) {
             const iframe = document.getElementById("proxyFrame");
-            iframe.src = iframe.src; // Refresh the iframe
-        }
-
-        function goBack() {
-            if (historyIndex > 0) {
-                historyIndex--;
-                openIframe(historyStack[historyIndex]);
+            if (!iframe) return;
+            // Use Ultraviolet encoding and prefix for proxying
+            if (window.uv && window.UV && typeof UV.encodeUrl === 'function') {
+                iframe.src = uv.prefix + UV.encodeUrl(url);
+            } else {
+                iframe.src = url; // fallback (will not work for most sites)
             }
-        }
-
-        function goForward() {
-            if (historyIndex < historyStack.length - 1) {
-                historyIndex++;
-                openIframe(historyStack[historyIndex]);
-            }
-        }
-
-        function toggleFullscreen() {
-            const iframe = document.getElementById("proxyFrame");
-            if (iframe.requestFullscreen) iframe.requestFullscreen();
-            else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
-            else if (iframe.msRequestFullscreen) iframe.msRequestFullscreen();
         }
     </script>
-    
-    
-
-    <p>&nbsp;</p>
-    
-    <div class="container center-container">
-        <p class="center">The proxy is COOKED, just dont use it its broken.</p>
-    </div>
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("/uv/uv.sw.js", {
+                    scope: '/uv/'
+                }).then(reg => console.log('✅ Service Worker registered:', reg.scope))
+                .catch(err => console.error('❌ Service Worker registration failed:', err));
+            });
+        }
+    </script>
 </body>
 
 <footer>

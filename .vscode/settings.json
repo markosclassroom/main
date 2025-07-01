@@ -1,3 +1,9 @@
 {
-    "git.ignoreLimitWarning": true
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/.git/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/assets/**": true
+  }
 }

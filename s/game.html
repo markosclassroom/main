@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QYPYXGT59Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QYPYXGT59Q');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3761613789479778"
+     crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="author" content="Marko Vityk">
+  <title>Marko's Classroom</title>
+  <link rel="icon" href="dog.png">
+  <link rel="stylesheet" href="../main.css">
+  <script src="particles.js"></script>
+  <script defer src="script.js"></script>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center; 
+      align-items: center;
+      background-color: #1a1a1acc; 
+      padding: 20px;
+      border-radius: 25px; 
+      box-shadow: 0 0 15px 5px white; 
+      width: fit-content; 
+      margin: 20px auto; 
+      width: 400%;
+      max-width: 500px;
+    }
+    .proxy-controls button {
+      padding: 10px;
+      font-size: 18px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    #game {
+      width: 100%;
+      height: 500px;
+      border: none;
+    }
+    .embed-container {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      height: 500px;
+      margin: 20px auto;
+      border: 2px solid white;
+      border-radius: 15px;
+      overflow: hidden;
+      background-color: white;
+    }
+    .fullscreen-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: white;
+      border: none;
+      padding: 8px 12px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+  <header class="header nav-container">
+    <img src="dog.png" alt="dog image" class="header-img">
+    <h1 class="header-text">Marko's Classroom</h1>
+    <button onclick="location.href='games.html'">Back</button>
+  </header>
+  <p>&nbsp;</p>
+  <div class="proxy-controls">
+    <button onclick="refreshIframe()">🔄</button>
+    <button onclick="toggleFullscreen()">⛶</button>
+  </div>
+
+  <div class="embed-container" id="embedWrapper">
+    <iframe id="game"></iframe>
+  </div>
+  <script>
+    // the ?game= param
+    window.addEventListener('DOMContentLoaded', function() {
+      const params = new URLSearchParams(window.location.search);
+      const game = params.get('game');
+      const iframe = document.getElementById("game");
+      if (game) {
+        iframe.src = game;
+      } else {
+        iframe.src = "";
+      }
+    });
+
+    function refreshIframe() {
+      const iframe = document.getElementById("game");
+      iframe.src = iframe.src;
+    }
+    function toggleFullscreen() {
+      const iframe = document.getElementById("game");
+      if (!document.fullscreenElement) {
+        if (iframe.requestFullscreen) {
+          iframe.requestFullscreen();
+        } else if (iframe.mozRequestFullScreen) {
+          iframe.mozRequestFullScreen();
+        } else if (iframe.webkitRequestFullscreen) {
+          iframe.webkitRequestFullscreen();
+        } else if (iframe.msRequestFullscreen) {
+          iframe.msRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+  </script>
+  <p>&nbsp;</p>
+</body>
+<footer>
+  <p class="footer-text">&copy; 2025 Marko Vityk</p>
+</footer>
+</html>
