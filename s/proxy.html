@@ -19,13 +19,8 @@
     <link rel="stylesheet" href="../main.css">
     <script src="particles.js"></script>
     <script defer src="script.js"></script>
-
-    <script>
-    // Set bare-mux-workerPath in localStorage for Ultraviolet (must be set before UV scripts load)
-    if (!localStorage.getItem('bare-mux-workerPath')) {
-        localStorage.setItem('bare-mux-workerPath', '/uv/bare/');
-    }
-    </script>
+    <script src="../active/uv/uv.bundle.js"></script>
+    <script src="../active/uv/uv.config.js"></script>
 
     <style>
         .container {
@@ -59,13 +54,26 @@
 <body>
     <div id="particles-js"></div>
     <header class="header nav-container">
-        <img src="dog.png" alt="Image" class="header-img">
+        <a href="/index.html" class="dog-icon-link">
+            <img src="dog.png" class="header-img">
+        </a>
         <h1 class="header-text">Marko's Classroom</h1>
         <button onclick="location.href='../index.html'">Back</button>
     </header>
     <p>&nbsp;</p>
     <div class="container">
-        <input id="urlInput" class="input-field" type="text" placeholder="Type a URL, ex: https://example.com">
+        <form id="url-form">
+            <input
+              type="text"
+              id="url-input"
+              onfocus="this.setSelectionRange(0, this.value.length)"
+              class="input-field"
+              placeholder="Search or enter URL"
+              autocomplete="off"
+              autocorrect="off"
+              spellcheck="false"
+            />
+          </form>
         <button onclick="processUrl()">Go</button>
     </div>
     <div class="proxy-controls">

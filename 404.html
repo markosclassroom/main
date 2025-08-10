@@ -36,8 +36,11 @@
 <body>
     <div id="particles-js"></div>
     <header class="header nav-container">
-        <img src="/s/dog.png" alt="Logo" class="header-img">
+        <a href="/index.html" class="dog-icon-link">
+            <img src="/s/dog.png" class="header-img">
+        </a>
         <h1 class="header-text">Marko's Classroom</h1>
+        <button class="center-button nav-button-large right-fix" onclick="location.href='/s/games.html'">Games</button>
     </header>
     <div class="container center-container" style="text-align: center;">
         <div class="main-text">
@@ -45,7 +48,7 @@
             <p>404 - Page not found</p>
         </div>
         <div class="button-container" style="display: flex; justify-content: center; gap: 10px;">
-            <button class="center-button" onclick="location.href='index.html'">Home</button>
+            <button class="center-button" onclick="history.back()">Back</button>
         </div>
 
         <div class="main-text" style="color: white;">
@@ -56,7 +59,7 @@
 </body>
 
 <footer>
-    <p class="footer-text">&copy;2025 Marko Vityk | Contact: <a href="mailto:administrator@marko.win">administrator@marko.win</a></p>
+    <p class="footer-text">Contact: <a href="mailto:administrator@marko.win">administrator@marko.win</a></p>
 </footer>
 
 
