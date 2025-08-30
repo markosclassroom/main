@@ -91,12 +91,6 @@ body {
   color: white;
 }
 
-.shoutout-text {
-  font-size: 20px;
-  justify-content: center;
-  align-items: center;
-}
-
 #particles-js {
   position: fixed;
   width: 100%;
@@ -303,6 +297,18 @@ button:hover, .center-button:hover {
 
 .maksclass {
   color: #ff3900;
+}
+
+.shoutout-text {
+  font-size: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.smol-shoutout-text {
+  font-size: 3px;
+  justify-content: center;
+  align-items: center;
 }
 
 .highlight-effect {
