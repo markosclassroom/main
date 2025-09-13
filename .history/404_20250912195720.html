@@ -23,7 +23,7 @@ window.ezstandalone = window.ezstandalone || {};
 ezstandalone.cmd = ezstandalone.cmd || [];
 </script>
     <title>Marko's Classroom</title>
-    <link rel="icon" href="/s/dogfavi.png">
+    <link rel="icon" href="/s/dog.png">
     <link rel="stylesheet" href="/main.css">
     <meta name="description" content="Marko's Classroom is a website that contains many games and a proxy! The website may not update much. But who knows.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,16 +43,19 @@ ezstandalone.cmd = ezstandalone.cmd || [];
 <body>
     <div id="particles-js"></div>
     <header class="header nav-container">
-        <img src="/s/dog.png" alt="Logo" class="header-img">
+        <a href="/index.html" class="dog-icon-link">
+            <img src="/s/dog.png" class="header-img">
+        </a>
         <h1 class="header-text">Marko's Classroom</h1>
+        <button class="center-button nav-button-large right-fix" onclick="location.href='/s/games.html'">Games</button>
     </header>
     <div class="container center-container" style="text-align: center;">
         <div class="main-text">
-            <h2>Welcome to Marko's Classroom</h2>
-            <p>Explore community made ripoff games!</p>
-            <h1>You are being ratelimited!</h1>
-            <p>Please contact administrator@marko.win</p>
-            <p>im gonna run out of money if I dont put this, I also dont remember putting this here</p>
+            <h2>Where'd you go?</h2>
+            <p>404 - Page not found</p>
+        </div>
+        <div class="button-container" style="display: flex; justify-content: center; gap: 10px;">
+            <button class="center-button" onclick="history.back()">Back</button>
         </div>
 
         <div class="main-text" style="color: white;">
@@ -65,4 +68,6 @@ ezstandalone.cmd = ezstandalone.cmd || [];
 <footer>
     <p class="footer-text">Contact: <a href="mailto:administrator@marko.win">administrator@marko.win</a>, <a href="/privacy-policy.html">Privacy Policy<a></p>
 </footer>
+
+
 </html>
