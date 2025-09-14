@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYPYXGT59Q"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-QYPYXGT59Q');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3761613789479778"
+     crossorigin="anonymous"></script>
+     <script src="https://cmp.gatekeeperconsent.com/min.js" data-cfasync="false"></script>
+     <script src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
+     <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
+     <script>
+     window.ezstandalone = window.ezstandalone || {};
+     ezstandalone.cmd = ezstandalone.cmd || [];
+     </script>
+    <title>Markos Classroom</title>
+    <link rel="icon" href="/s/dogfavi.png">
+    <link rel="stylesheet" href="main.css">
+    <meta name="description" content="Marko's Classroom is a place to explore a lot of games...">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="s/particles.js"></script>
+    <script src="s/search.js"></script>
+    <script defer src="s/script.js"></script>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <header class="header nav-container" role="banner">
+        <a href="index.html" class="dog-icon-link">
+            <img src="s/dog.png" class="header-img">
+        </a>
+        <h1 class="header-text header-title">Marko's Classroom</h1>
+        <button class="center-button nav-button-large right-fix" onclick="location.href='s/games.html'">Games</button>
+    </header>
+    <div class="container center-container text-center">
+        <div class="main-text">
+            <h2>Welcome to Marko's Classroom</h2>
+            <p>Explore 230+ games!</p>
+        </div>
+        <div class="search-container">
+            <input class="input-field" type="text" id="searchBar" placeholder="Search in games list..." onkeydown="if(event.key==='Enter'){searchGames();}">
+            <button class="search-button" onclick="searchToGames()">Search</button>
+        </div>
+        <div class="centered-flex margin-10 center-content">
+            <button class="center-button" style="margin-top: 10px;" onclick="location.href='s/games.html'">Games List</button>
+        </div>
+    </div>
+        <div class="main-wrapper">
+            <aside class="sidebar">
+                <div class="logo-area">
+                    <img src="/s/dog.png" alt="Logo" class="sidebar-logo">
+                    <span class="sidebar-title">Marko's Classroom</span>
+                </div>
+                <nav class="sidebar-nav">
+                    <a href="/s/games.html" class="nav-link">Games</a>
+                    <a href="/s/more.html" class="nav-link">Shoutouts</a>
+                    <a href="https://discord.gg/BBcHrUYYNv" target="_blank" class="nav-link">Discord</a>
+                    <a href="https://docs.google.com/document/d/1uYzV3qtnhY9K1rueLH5SVbLpyBikvipcQgAgpFMUsss/edit?usp=sharing" target="_blank" class="nav-link">Links</a>
+                </nav>
+                <div class="theme-area">
+                    <label for="themeSelect">Theme:</label>
+                    <select id="themeSelect" onchange="setTheme(this.value)">
+                        <option value="default">Default</option>
+                        <option value="dark">Dark</option>
+                        <option value="light">Light</option>
+                        <option value="retro">Retro</option>
+                    </select>
+                </div>
+            </aside>
+            <main class="content-area">
+                <section class="hero">
+                    <h1>Welcome to Marko's Classroom</h1>
+                    <p class="subtitle">Explore community made ripoff games!</p>
+                </section>
+                <section class="search-section">
+                    <input class="input-field" type="text" id="searchBar" placeholder="Search games...">
+                    <button class="search-button" onclick="searchGames()">Search</button>
+                </section>
+                <section class="info-section">
+                    <div class="info-card">
+                        <h2>Games</h2>
+                        <p>Browse and play 230+ games made by the community.</p>
+                        <a href="/s/games.html" class="info-btn">Go to Games</a>
+                    </div>
+                    <div class="info-card">
+                        <h2>Shoutouts</h2>
+                        <p>See who contributed and helped build the site.</p>
+                        <a href="/s/more.html" class="info-btn">View Shoutouts</a>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <style>
+            body, html { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg, #181818); color: var(--text, #fff); }
+            .main-wrapper { display: flex; min-height: 100vh; }
+            .sidebar { background: var(--accent, #4a90e2); color: #fff; width: 260px; min-width: 220px; display: flex; flex-direction: column; align-items: center; padding: 32px 0; box-shadow: 2px 0 12px #0002; }
+            .logo-area { display: flex; align-items: center; margin-bottom: 32px; }
+            .sidebar-logo { width: 48px; height: 48px; border-radius: 12px; margin-right: 12px; }
+            .sidebar-title { font-size: 1.5rem; font-weight: bold; }
+            .sidebar-nav { display: flex; flex-direction: column; gap: 18px; margin-bottom: 32px; }
+            .nav-link { color: #fff; text-decoration: none; font-size: 1.1rem; padding: 8px 18px; border-radius: 8px; transition: background 0.2s; }
+            .nav-link:hover { background: rgba(255,255,255,0.12); }
+            .theme-area { margin-top: auto; padding-top: 24px; }
+            .theme-area label { font-weight: bold; margin-right: 8px; }
+            .theme-area select { padding: 6px 12px; border-radius: 6px; border: none; font-size: 1rem; }
+            .content-area { flex: 1; padding: 48px 5vw; display: flex; flex-direction: column; align-items: center; }
+            .hero { text-align: center; margin-bottom: 32px; }
+            .hero h1 { font-size: 2.8rem; margin-bottom: 10px; }
+            .subtitle { font-size: 1.2rem; color: var(--accent, #4a90e2); margin-bottom: 18px; }
+            .search-section { display: flex; gap: 10px; margin-bottom: 32px; }
+            .input-field { padding: 12px 16px; font-size: 1.1rem; border-radius: 8px; border: 1px solid #444; background: #222; color: #fff; width: 320px; }
+            .search-button { padding: 12px 24px; border-radius: 8px; border: none; background: var(--accent, #4a90e2); color: #fff; font-size: 1.1rem; cursor: pointer; transition: background 0.2s; }
+            .search-button:hover { background: #357ab8; }
+            .info-section { display: flex; gap: 32px; justify-content: center; margin-top: 24px; flex-wrap: wrap; }
+            .info-card { background: #232323; border-radius: 16px; box-shadow: 0 0 12px #0004; padding: 32px 24px; min-width: 220px; max-width: 320px; text-align: center; }
+            .info-card h2 { margin-top: 0; color: var(--accent, #4a90e2); }
+            .info-btn { display: inline-block; margin-top: 18px; padding: 10px 22px; border-radius: 8px; background: var(--accent, #4a90e2); color: #fff; text-decoration: none; font-size: 1rem; transition: background 0.2s; }
+            .info-btn:hover { background: #357ab8; }
+            @media (max-width: 900px) {
+                .main-wrapper { flex-direction: column; }
+                .sidebar { width: 100vw; min-width: unset; flex-direction: row; justify-content: space-between; align-items: center; padding: 18px 5vw; box-shadow: none; }
+                .logo-area { margin-bottom: 0; }
+                .sidebar-nav { flex-direction: row; gap: 12px; margin-bottom: 0; }
+                .theme-area { margin-top: 0; padding-top: 0; }
+            }
+            @media (max-width: 600px) {
+                .content-area { padding: 24px 2vw; }
+                .info-section { flex-direction: column; gap: 18px; }
+                .info-card { min-width: unset; max-width: 100%; }
+            }
+        </style>
+        <script>
+            // Theme definitions
+            const themes = {
+                default: {
+                    '--bg': '#181818',
+                    '--text': '#fff',
+                    '--accent': '#4a90e2',
+                },
+                dark: {
+                    '--bg': '#111',
+                    '--text': '#eee',
+                    '--accent': '#222',
+                },
+                light: {
+                    '--bg': '#f5f5f5',
+                    '--text': '#222',
+                    '--accent': '#4a90e2',
+                },
+                retro: {
+                    '--bg': '#fbeec1',
+                    '--text': '#2d2d2d',
+                    '--accent': '#e67e22',
+                }
+            };
+            function setTheme(theme) {
+                document.cookie = 'siteTheme=' + theme + ';path=/;max-age=31536000';
+                applyTheme(theme);
+            }
+            function applyTheme(theme) {
+                const t = themes[theme] || themes.default;
+                for (const key in t) {
+                    document.body.style.setProperty(key, t[key]);
+                }
+            }
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+            }
+            window.addEventListener('DOMContentLoaded', function() {
+                const theme = getCookie('siteTheme') || 'default';
+                document.getElementById('themeSelect').value = theme;
+                applyTheme(theme);
+            });
+        </script>
+        <script>
+            // Theme definitions
+            const themes = {
+                default: {
+                    '--bg': '#181818',
+                    '--text': '#fff',
+                    '--accent': '#4a90e2',
+                },
+                dark: {
+                    '--bg': '#111',
+                    '--text': '#eee',
+                    '--accent': '#222',
+                },
+                light: {
+                    '--bg': '#f5f5f5',
+                    '--text': '#222',
+                    '--accent': '#4a90e2',
+                },
+                retro: {
+                    '--bg': '#fbeec1',
+                    '--text': '#2d2d2d',
+                    '--accent': '#e67e22',
+                }
+            };
+            function setTheme(theme) {
+                document.cookie = 'siteTheme=' + theme + ';path=/;max-age=31536000';
+                applyTheme(theme);
+            }
+            function applyTheme(theme) {
+                const t = themes[theme] || themes.default;
+                for (const key in t) {
+                    document.body.style.setProperty(key, t[key]);
+                }
+            }
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+            }
+            window.addEventListener('DOMContentLoaded', function() {
+                const theme = getCookie('siteTheme') || 'default';
+                document.getElementById('themeSelect').value = theme;
+                applyTheme(theme);
+            });
+        </script>
+    <p class="tiny-space">&NonBreakingSpace;</p>
+    <div class="container center-container text-center" style="padding: 1px;">
+        <div class="button-container centered-flex gap-1">
+            <button class="center-button" onclick="window.open('https://discord.gg/BBcHrUYYNv')">Discord</button>
+            <button class="center-button" onclick="window.open('https://docs.google.com/document/d/1uYzV3qtnhY9K1rueLH5SVbLpyBikvipcQgAgpFMUsss/edit?usp=sharing')">Links</button>
+            <button class="center-button" onclick="window.open('https://docs.google.com/document/d/1_D3SmwFffN2hS_ohcEE9GoUzIvZLTzSVQD4iVNGb0JM/edit?usp=sharing')">How to make links</button>
+        </div>
+    </div>
+
+<!--1^99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999e+99-->
+</body>
+
+<footer>
+    <p class="footer-text">Contact: <a href="mailto:administrator@marko.win">administrator@marko.win</a>, anas and marko are cool :), and <a href='/s/more.html'>cool link</a>, <a href="/privacy-policy.html">Privacy Policy<a></p>
+</footer>
+
+
+</html>
