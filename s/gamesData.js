@@ -638,6 +638,13 @@ const games = [
         "identifier": "economical-2"
     },
     {
+        "name": "Escape Road City",
+        "gamePage": "game.html?game=g/load/escaperoad/index.html",
+        "iframe": "g/load/escaperoad/index.html",
+        "img": "g/load/escaperoad/loading.png",
+        "identifier": "escaperoad"
+    },
+    {
         "name": "Escaping the Prison",
         "gamePage": "game.html?game=g/load/escaping-the-prison/index.html",
         "iframe": "g/load/escaping-the-prison/index.html",
