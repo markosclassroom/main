@@ -26,9 +26,11 @@
     <link rel="stylesheet" href="main.css">
     <meta name="description" content="Marko's Classroom is a place to explore a lot of games...">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="s/particles.js"></script>
-    <script src="s/search.js"></script>
+    <script defer src="s/particles.js"></script>
+    <script defer src="s/search.js"></script>
     <script defer src="s/script.js"></script>
+    <script defer src="s/text.js"></script>
+    <script defer src="s/quote.js"></script>
 </head>
 <body>
     <div id="particles-js"></div>
@@ -39,30 +41,19 @@
         <h1 class="header-text header-title">Marko's Classroom</h1>
         <button class="center-button nav-button-large right-fix" onclick="location.href='s/games.html'">Games</button>
     </header>
-    <div class="container center-container text-center">
-        <div class="main-text">
-            <h2>Welcome to Marko's Classroom</h2>
-            <p>Explore 230+ games!</p>
-            <p>i dont think theres a way to add clash royale or clash of clans</p>
-        </div>
-        <div class="search-container">
-            <input class="input-field" type="text" id="searchBar" placeholder="Search in games list..." onkeydown="if(event.key==='Enter'){searchGames();}">
-            <button class="search-button" onclick="searchToGames()">Search</button>
-        </div>
-        <div class="centered-flex margin-10 center-content">
-            <button class="center-button" style="margin-top: 10px;" onclick="location.href='s/games.html'">Games List</button>
-        </div>
+    <div class="main-text center-container text-center main-div">
+        <h2>Marko's Classroom</h2>
+    <p id="mainQuote">insert text</p>
+    <input class="input-field" type="text" id="searchBar" placeholder="Search all games...">    
     </div>
     <p class="tiny-space">&NonBreakingSpace;</p>
-    <div class="container center-container text-center" style="padding: 1px;">
-        <div class="button-container centered-flex gap-1">
+    <div class="center-content low-div" style="padding: 1px;">
+        <div class="button-container">
             <button class="center-button" onclick="window.open('https://discord.gg/BBcHrUYYNv')">Discord</button>
             <button class="center-button" onclick="window.open('https://docs.google.com/document/d/1uYzV3qtnhY9K1rueLH5SVbLpyBikvipcQgAgpFMUsss/edit?usp=sharing')">Links</button>
             <button class="center-button" onclick="window.open('https://docs.google.com/document/d/1_D3SmwFffN2hS_ohcEE9GoUzIvZLTzSVQD4iVNGb0JM/edit?usp=sharing')">How to make links</button>
         </div>
     </div>
-    <p class="center">also check out <a href="https://sites.google.com/psd202.org/manuel-games-heritage-psd202/home">this site</a>!</p>
-
 <!--1^99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999e+99-->
 </body>
 

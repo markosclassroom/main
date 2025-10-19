@@ -518,11 +518,12 @@ var pJS = function(tag_id, params){
         //     p.vy = f * Math.sin(t);
         // }
   
-        /* move the particle */
+        /* move the particle (framerate-independent) */
         if(pJS.particles.move.enable){
           var ms = pJS.particles.move.speed/2;
-          p.x += p.vx * ms;
-          p.y += p.vy * ms;
+          var frameMult = pJS.tmp.frame_rate ? pJS.tmp.frame_rate : 1; // multiplier relative to 60 FPS baseline
+          p.x += p.vx * ms * frameMult;
+          p.y += p.vy * ms * frameMult;
         }
   
         /* change opacity status */
@@ -1309,39 +1310,72 @@ var pJS = function(tag_id, params){
     };
   
   
-    pJS.fn.vendors.draw = function(){
-  
+    // We'll compute delta time between frames and expose a multiplier
+    pJS.fn.vendors.draw = function(nextStep){
+
+      // use the high-resolution timestamp when provided by requestAnimationFrame
+      var now;
+      if(typeof nextStep === 'number'){
+        // timestamp provided by requestAnimationFrame (high-resolution, relative)
+        now = nextStep;
+      }else if(window.performance && performance.now){
+        now = performance.now();
+      }else{
+        now = (new Date()).getTime();
+      }
+
+      // frame rate baseline (ms per frame at 60 FPS)
+      var baseline = 1000 / 60; // ~16.6667 ms
+
+      // initialize last frame time so first elapsed ~ baseline (avoid big first-frame jumps)
+      if(!pJS.tmp.lastFrameTime){
+        pJS.tmp.lastFrameTime = now - baseline;
+      }
+
+      var elapsed = now - pJS.tmp.lastFrameTime; // ms
+      pJS.tmp.lastFrameTime = now;
+
+      // Protect against extremely large or negative elapsed times (tab inactive or mixed timestamp origins)
+      var capped = Math.max(0, Math.min(elapsed, 100));
+      pJS.tmp.frame_rate = capped / baseline;
+
+      var continueLoop = function(){
+        if(!pJS.particles.move.enable){
+          cancelRequestAnimFrame(pJS.fn.drawAnimFrame);
+        }else{
+          // request next frame and pass timestamp
+          pJS.fn.drawAnimFrame = requestAnimFrame(pJS.fn.vendors.draw);
+        }
+      };
+
       if(pJS.particles.shape.type == 'image'){
-  
+
         if(pJS.tmp.img_type == 'svg'){
-  
+
           if(pJS.tmp.count_svg >= pJS.particles.number.value){
             pJS.fn.particlesDraw();
-            if(!pJS.particles.move.enable) cancelRequestAnimFrame(pJS.fn.drawAnimFrame);
-            else pJS.fn.drawAnimFrame = requestAnimFrame(pJS.fn.vendors.draw);
+            continueLoop();
           }else{
-            //console.log('still loading...');
+            // still loading images
             if(!pJS.tmp.img_error) pJS.fn.drawAnimFrame = requestAnimFrame(pJS.fn.vendors.draw);
           }
-  
+
         }else{
-  
+
           if(pJS.tmp.img_obj != undefined){
             pJS.fn.particlesDraw();
-            if(!pJS.particles.move.enable) cancelRequestAnimFrame(pJS.fn.drawAnimFrame);
-            else pJS.fn.drawAnimFrame = requestAnimFrame(pJS.fn.vendors.draw);
+            continueLoop();
           }else{
             if(!pJS.tmp.img_error) pJS.fn.drawAnimFrame = requestAnimFrame(pJS.fn.vendors.draw);
           }
-  
+
         }
-  
+
       }else{
         pJS.fn.particlesDraw();
-        if(!pJS.particles.move.enable) cancelRequestAnimFrame(pJS.fn.drawAnimFrame);
-        else pJS.fn.drawAnimFrame = requestAnimFrame(pJS.fn.vendors.draw);
+        continueLoop();
       }
-  
+
     };
   
   

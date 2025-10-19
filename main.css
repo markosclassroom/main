@@ -25,7 +25,7 @@ html {
 }
 
 body {
-  background-color: #111311;
+  background-color: #040404;
   color: whitesmoke;
   font-family: sans-serif;
 }
@@ -87,7 +87,7 @@ body {
   position: fixed;
   bottom: 10px;
   left: 10px;
-  font-size: 16px;
+  font-size: 8px;
   color: white;
 }
 
@@ -207,6 +207,30 @@ button:hover, .center-button:hover {
   background-color: white;
   color: black;
   border-color: #1a1a1acc;
+}
+
+/* Quote animation styles */
+.quote {
+  display: block; /* ensure it's on its own line */
+  text-align: center;
+  transition: opacity 300ms ease, text-shadow 200ms ease, transform 200ms ease;
+  opacity: 0;
+  cursor: default;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+.quote--visible {
+  opacity: 1;
+}
+.quote--hidden {
+  opacity: 0;
+}
+.quote:hover {
+  cursor: pointer;
+}
+.quote-hover-outline {
+  /* subtle outline effect on hover */
+  text-shadow: 0 0 6px rgba(255,255,255,0.9), 0 0 10px rgba(0,0,0,0.4);
 }
 
 .embed-container {
@@ -348,7 +372,35 @@ button:hover, .center-button:hover {
 .tiny-space {
     font-size: 5px;
 }
-
+.main-div {
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.low-div {
+  justify-content: bottom;
+  align-items: center;
+  width: fit-content;
+  margin: auto;
+  position: absolute;
+  bottom: 1%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.hide-container {
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  margin: 15px auto;
+}
+.smol {
+  font-size: 10px;
+}
 @keyframes expand-fade {
   0% {
     width: 0;
