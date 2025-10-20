@@ -9,5 +9,6 @@ let quotes = ["did you know 1+1=2?",
     "whats ur favorite game?",
     "try out the game quake",
     "panic key exists (press `) but doesnt work in games",
-    "gay"
+    "gay",
+    "thanks anas"
 ]
