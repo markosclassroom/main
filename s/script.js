@@ -22,11 +22,9 @@ particlesJS("particles-js", {
     }
 });
 
-// Panic key configuration: pressing the backtick (`) will redirect to this URL
-// Change to any URL you want as the panic/safe page
-var PANIC_URL = 'https://classroom.google.com/';
+// put panic url here
+let PANIC_URL = 'chrome://quit';
 
-// Helper to detect editable elements where we shouldn't trigger panic
 function isTypingInField(e){
     var el = e.target;
     if(!el) return false;
@@ -46,7 +44,7 @@ window.addEventListener('keydown', function(e){
     if(e.key === '`' || e.code === 'Backquote'){
         // prevent accidental behavior
         e.preventDefault();
-        window.location.href = PANIC_URL;
+        window.location.href = 'https://classroom.google.com/';
     }
 });
 
