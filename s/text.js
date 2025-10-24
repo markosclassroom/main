@@ -1,4 +1,7 @@
-let quotes = ["marko and anas worked hard for yall",
+let quotes = ["i love cheese",
+    "lebron?",
+    "Forsaken V2",
+    "marko and anas worked hard for yall",
     "thanks anas for tickles.store",
     "did you know 1+1=2?",
     "stop begging for games please let me sleep",
@@ -14,5 +17,6 @@ let quotes = ["marko and anas worked hard for yall",
     "thanks anas",
     "cheddar",
     "WE ARE FORSAKEN",
-    "pay me to add smth here cuz why not?"
+    "pay me to add smth here cuz why not?",
+    "ANAS STOP CHANGING THE TEXT PLEASE"
 ]

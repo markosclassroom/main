@@ -1,1 +1,3 @@
 caddy.exe run --config Caddyfile --adapter caddyfile
+
+cloudflared.exe tunnel run --token eyJhIjoiMzQ0OGRhNzkyODFhZTAxMmI0MWI4ZDc0MzA4NWZlZGEiLCJ0IjoiNjA1NjZkZTMtYTcwYi00YjMxLWFkYjEtZTJiZDM1ZGY2MDk2IiwicyI6Ik1EWmhaVGM1T1RndE56Sm1aaTAwWkRRMUxXSm1NbUl0TlRoaE5tSXpaV0kyWlRRMiJ9

@@ -5,9 +5,7 @@ window.addEventListener('DOMContentLoaded', function(){
     if(!quoteEl) return;
 
     var source = (typeof quotes !== 'undefined' && Array.isArray(quotes) && quotes.length) ? quotes : [
-      "Welcome!",
-      "Have a great day",
-      "Play a game"
+      "404: Quotes Not Found"
     ];
     quoteEl.classList.add('quote');
 
