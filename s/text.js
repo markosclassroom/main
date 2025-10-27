@@ -18,5 +18,4 @@ let quotes = ["i love cheese",
     "cheddar",
     "WE ARE FORSAKEN",
     "pay me to add smth here cuz why not?",
-    "ANAS STOP CHANGING THE TEXT PLEASE"
 ]
