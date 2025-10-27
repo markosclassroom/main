@@ -1,4 +1,3 @@
-# Marko's Classroom
-A unblocked gaming site for you to use anywhere at anyntime anywhere.  
+# markos classroom v2
 
-[Discord server](https://discord.com/invite/BBcHrUYYNv)
+heyyyyy, welcome to markos classroom free games you know 👌
