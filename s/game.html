@@ -56,13 +56,20 @@ ezstandalone.cmd = ezstandalone.cmd || [];
       pointer-events: none; /* don't block clicks */
     }
     .left-center-image .floating-ad {
-      width: 84px;
+      width: 160px; /* increased size */
+      max-width: 90vw;
       height: auto;
-      border-radius: 8px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
       display: block;
       transform-origin: 50% 50%;
+      transition: opacity 240ms ease, transform 240ms ease;
       pointer-events: auto; /* allow hover if needed */
+    }
+
+    /* Hide the floating image on small viewports to avoid overlap */
+    @media (max-width: 700px) {
+      .left-center-image { display: none; }
     }
     /* removed visual spin - images now swap every 5s */
     .embed-container {
