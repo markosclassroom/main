@@ -19,10 +19,14 @@ window.ezstandalone = window.ezstandalone || {};
 ezstandalone.cmd = ezstandalone.cmd || [];
 </script>  
   <meta charset="UTF-8">
-    <title>Marko's Classroom</title>
+    <title>enjoy your game</title>
     <link rel="icon" href="/s/dogfavi.png">
     <link rel="stylesheet" href="../main.css">
     <script src="particles.js"></script>
+    <!-- Left Center Floating Image -->
+<div class="left-center-image">
+  <img src="/s/ads/ns.png" alt="Ad Image" class="floating-ad">
+</div>
     <script defer src="script.js"></script>
     <script>
         function showMaintenancePopup() {
@@ -37,10 +41,7 @@ ezstandalone.cmd = ezstandalone.cmd || [];
             
             popup.innerHTML = `
                 <div class="popup-content">
-                    <div class="popup-title">NOTICE</div>
-                    <div class="popup-message">
-                        Marko's Classroom will be down for maintenance on November 12th. 
-                        We apologize for any inconvenience.
+                    <div class="popup-title">we finna be down november 12th</div>
                     </div>
                     <button id="closePopup" class="popup-button">
                         Please wait... (<span id="timer">5</span>s)
@@ -104,7 +105,7 @@ ezstandalone.cmd = ezstandalone.cmd || [];
       justify-content: center;
     }
     .popup-content {
-      background: #1a1a1a;
+      background: #000;
       padding: 2rem;
       border-radius: 12px;
       max-width: 400px;
@@ -117,7 +118,7 @@ ezstandalone.cmd = ezstandalone.cmd || [];
       font-size: 24px;
       font-weight: bold;
       margin-bottom: 1rem;
-      color: #ff3e3e;
+      color:rgba(78, 62, 255, 0.18);
     }
     .popup-message {
       margin-bottom: 1.5rem;
@@ -134,12 +135,12 @@ ezstandalone.cmd = ezstandalone.cmd || [];
       transition: all 0.3s ease;
     }
     .popup-button.active {
-      background: #ff3e3e;
+      background: #000;
       opacity: 1;
       cursor: pointer;
     }
     .popup-button.active:hover {
-      background: #ff5252;
+      background: #000;
     }
     .popup-timer {
       font-size: 14px;
@@ -171,7 +172,7 @@ ezstandalone.cmd = ezstandalone.cmd || [];
       align-items: center;
       background-color: #1a1a1acc;
       padding: 20px;
-      border-radius: 25px;
+      border-radius: 0px;
       box-shadow: 0 0 15px 5px white;
       width: fit-content;
       margin: 20px auto;
@@ -182,13 +183,13 @@ ezstandalone.cmd = ezstandalone.cmd || [];
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: #22222270;
+      background: #000;
       color: #fff;
       padding: 0 20px 0 10px;
       height: 64px;
       border-top-left-radius: 15px;
       border-top-right-radius: 15px;
-      border: 2px solid white;
+      border: 2px solid black;
       border-bottom: none;
       max-width: 900px;
       margin: 20px auto 0 auto;
@@ -211,7 +212,6 @@ ezstandalone.cmd = ezstandalone.cmd || [];
     }
     .game-bar-title {
       font-size: 1.3rem;
-      font-weight: bold;
       letter-spacing: 1px;
       text-shadow: 0 1px 2px #000a;
       white-space: nowrap;
@@ -255,12 +255,12 @@ ezstandalone.cmd = ezstandalone.cmd || [];
       height: 500px;
       margin: 0 auto 20px auto;
       border-top: none;
-      border-bottom-left-radius: 15px;
-      border-bottom-right-radius: 15px;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
       overflow: hidden;
-      background-color: white;
+      background-color: black;
       z-index: 1;
     }
     #game {
@@ -268,22 +268,20 @@ ezstandalone.cmd = ezstandalone.cmd || [];
       height: 100%;
       border: none;
       display: block;
-      border-bottom-left-radius: 15px;
-      border-bottom-right-radius: 15px;
+      border-bottom-left-radius: 2px;
+      border-bottom-right-radius: 2px;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
-      background: #fff;
+      background: #000;
     }
   </style>
 </head>
 <body>
   <div id="particles-js"></div>
   <header class="header nav-container">
-    <a href="../index.html" class="dog-icon-link">
-            <img src="dog.png" class="header-img">
         </a>
-    <h1 class="header-text">Marko's Classroom</h1>
-    <button class="center-button nav-button-large right-fix" onclick="location.href='games.html'">Games</button>
+    <h1 class="header-text">enjoy</h1>
+    <button class="center-button nav-button-large right-fix" onclick="location.href='games.html'">back</button>
   </header>
   <p>&nbsp;</p>
   <div id="game-bar" class="game-bar">

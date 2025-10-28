@@ -99,6 +99,32 @@ body {
   left: 0;
   z-index: -1;
 }
+.left-center-image {
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+  pointer-events: none; /* Optional: allows clicks to pass through */
+}
+.floating-ad {
+  width: 140px;           /* Adjust size as needed */
+  height: auto;
+  border-radius: 0px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.floating-ad:hover {
+  transform: scale(1.05);
+}
+
+/* Optional: Hide on small screens */
+@media (max-width: 768px) {
+  .left-center-image {
+    display: none;
+  }
+}
 
 button, .center-button {
   padding: 15px 25px;
