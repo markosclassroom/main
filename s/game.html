@@ -23,67 +23,22 @@ ezstandalone.cmd = ezstandalone.cmd || [];
     <link rel="icon" href="/s/dogfavi.png">
     <link rel="stylesheet" href="../main.css">
     <script src="particles.js"></script>
-    <!-- Left Center Floating Image -->
-<div class="left-center-image">
-  <img src="/s/ads/ns.png" alt="Ad Image" class="floating-ad">
-</div>
     <script defer src="script.js"></script>
     <script>
-        function showMaintenancePopup() {
-            // Check if user has already seen the popup
-            if (getCookie('maintenancePopupSeen')) {
-                return;
-            }
-
-            const popup = document.createElement('div');
-            popup.className = 'maintenance-popup';
-            popup.style.display = 'flex';
-            
-            popup.innerHTML = `
-                <div class="popup-content">
-                    <div class="popup-title">we finna be down november 12th</div>
-                    </div>
-                    <button id="closePopup" class="popup-button">
-                        Please wait... (<span id="timer">5</span>s)
-                    </button>
-                    <div class="popup-timer"></div>
-                </div>
-            `;
-
-            document.body.appendChild(popup);
-
-            const closeButton = document.getElementById('closePopup');
-            const timerSpan = document.getElementById('timer');
-            let timeLeft = 5;
-
-            const timer = setInterval(() => {
-                timeLeft--;
-                timerSpan.textContent = timeLeft;
-                
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    closeButton.innerHTML = 'Acknowledge';
-                    closeButton.classList.add('active');
-                    closeButton.onclick = () => {
-                        // Set cookie that expires in 30 days
-                        const d = new Date();
-                        d.setTime(d.getTime() + (30*24*60*60*1000));
-                        document.cookie = "maintenancePopupSeen=true;path=/;expires=" + d.toUTCString();
-                        popup.remove();
-                    };
-                }
-            }, 1000);
+      // Rotate the side image visually (CSS) and cycle the image source every few seconds
+      (function() {
+        const images = ['/s/ads/1.png','/s/ads/2.png','/s/ads/3.png'];
+        let idx = 0;
+        function cycle() {
+          idx = (idx + 1) % images.length;
+          const el = document.getElementById('side-rotating');
+          if (el) el.src = images[idx];
         }
-
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-            return null;
-        }
-
-        // Show popup when page loads
-        document.addEventListener('DOMContentLoaded', showMaintenancePopup);
+        // Change image every 3000ms
+        document.addEventListener('DOMContentLoaded', () => {
+          setInterval(cycle, 3000);
+        });
+      })();
     </script>
     <style>
     #game {
@@ -91,61 +46,30 @@ ezstandalone.cmd = ezstandalone.cmd || [];
       height: 500px;
       border: none;
     }
-    .maintenance-popup {
-      display: none;
+    /* Left-side floating rotating image */
+    .left-center-image {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(8px);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 9999;
+      pointer-events: none; /* don't block clicks */
     }
-    .popup-content {
-      background: #000;
-      padding: 2rem;
-      border-radius: 12px;
-      max-width: 400px;
-      text-align: center;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
-      color: white;
-      position: relative;
+    .left-center-image .floating-ad {
+      width: 84px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+      display: block;
+      transform-origin: 50% 50%;
+      pointer-events: auto; /* allow hover if needed */
     }
-    .popup-title {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 1rem;
-      color:rgba(78, 62, 255, 0.18);
+    .rotating {
+      animation: spin 6s linear infinite;
     }
-    .popup-message {
-      margin-bottom: 1.5rem;
-      line-height: 1.5;
-    }
-    .popup-button {
-      background: #333;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 6px;
-      cursor: not-allowed;
-      opacity: 0.5;
-      transition: all 0.3s ease;
-    }
-    .popup-button.active {
-      background: #000;
-      opacity: 1;
-      cursor: pointer;
-    }
-    .popup-button.active:hover {
-      background: #000;
-    }
-    .popup-timer {
-      font-size: 14px;
-      color: #666;
-      margin-top: 10px;
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
     .embed-container {
       position: relative;
@@ -278,6 +202,10 @@ ezstandalone.cmd = ezstandalone.cmd || [];
 </head>
 <body>
   <div id="particles-js"></div>
+  <!-- Left Center Floating Image (rotating & cycling between 1.png, 2.png, 3.png) -->
+  <div class="left-center-image">
+    <img id="side-rotating" src="/s/ads/1.png" alt="Side image" class="floating-ad rotating">
+  </div>
   <header class="header nav-container">
         </a>
     <h1 class="header-text">enjoy</h1>
