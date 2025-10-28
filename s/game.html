@@ -34,9 +34,9 @@ ezstandalone.cmd = ezstandalone.cmd || [];
           const el = document.getElementById('side-rotating');
           if (el) el.src = images[idx];
         }
-        // Change image every 3000ms
+        // Change image every 5000ms (1 -> 2 -> 3 -> repeat)
         document.addEventListener('DOMContentLoaded', () => {
-          setInterval(cycle, 3000);
+          setInterval(cycle, 5000);
         });
       })();
     </script>
@@ -64,13 +64,7 @@ ezstandalone.cmd = ezstandalone.cmd || [];
       transform-origin: 50% 50%;
       pointer-events: auto; /* allow hover if needed */
     }
-    .rotating {
-      animation: spin 6s linear infinite;
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
+    /* removed visual spin - images now swap every 5s */
     .embed-container {
       position: relative;
       width: 100%;
@@ -204,7 +198,7 @@ ezstandalone.cmd = ezstandalone.cmd || [];
   <div id="particles-js"></div>
   <!-- Left Center Floating Image (rotating & cycling between 1.png, 2.png, 3.png) -->
   <div class="left-center-image">
-    <img id="side-rotating" src="/s/ads/1.png" alt="Side image" class="floating-ad rotating">
+    <img id="side-rotating" src="/s/ads/1.png" alt="Side image" class="floating-ad">
   </div>
   <header class="header nav-container">
         </a>
