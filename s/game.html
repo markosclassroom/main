@@ -19,7 +19,7 @@ window.ezstandalone = window.ezstandalone || {};
 ezstandalone.cmd = ezstandalone.cmd || [];
 </script>  
   <meta charset="UTF-8">
-    <title>enjoy your game</title>
+    <title>Marko's Classroom</title>
     <link rel="icon" href="/s/dogfavi.png">
     <link rel="stylesheet" href="../main.css">
     <script src="particles.js"></script>
@@ -46,32 +46,6 @@ ezstandalone.cmd = ezstandalone.cmd || [];
       height: 500px;
       border: none;
     }
-    /* Left-side floating rotating image */
-    .left-center-image {
-      position: fixed;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 9999;
-      pointer-events: none; /* don't block clicks */
-    }
-    .left-center-image .floating-ad {
-      width: 160px; /* increased size */
-      max-width: 90vw;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-      display: block;
-      transform-origin: 50% 50%;
-      transition: opacity 240ms ease, transform 240ms ease;
-      pointer-events: auto; /* allow hover if needed */
-    }
-
-    /* Hide the floating image on small viewports to avoid overlap */
-    @media (max-width: 700px) {
-      .left-center-image { display: none; }
-    }
-    /* removed visual spin - images now swap every 5s */
     .embed-container {
       position: relative;
       width: 100%;
@@ -97,7 +71,7 @@ ezstandalone.cmd = ezstandalone.cmd || [];
       align-items: center;
       background-color: #1a1a1acc;
       padding: 20px;
-      border-radius: 0px;
+      border-radius: 25px;
       box-shadow: 0 0 15px 5px white;
       width: fit-content;
       margin: 20px auto;
@@ -108,13 +82,13 @@ ezstandalone.cmd = ezstandalone.cmd || [];
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: #000;
+      background: #22222270;
       color: #fff;
       padding: 0 20px 0 10px;
       height: 64px;
       border-top-left-radius: 15px;
       border-top-right-radius: 15px;
-      border: 2px solid black;
+      border: 2px solid white;
       border-bottom: none;
       max-width: 900px;
       margin: 20px auto 0 auto;
@@ -137,6 +111,7 @@ ezstandalone.cmd = ezstandalone.cmd || [];
     }
     .game-bar-title {
       font-size: 1.3rem;
+      font-weight: bold;
       letter-spacing: 1px;
       text-shadow: 0 1px 2px #000a;
       white-space: nowrap;
@@ -180,12 +155,12 @@ ezstandalone.cmd = ezstandalone.cmd || [];
       height: 500px;
       margin: 0 auto 20px auto;
       border-top: none;
-      border-bottom-left-radius: 4px;
-      border-bottom-right-radius: 4px;
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
       overflow: hidden;
-      background-color: black;
+      background-color: white;
       z-index: 1;
     }
     #game {
@@ -193,24 +168,25 @@ ezstandalone.cmd = ezstandalone.cmd || [];
       height: 100%;
       border: none;
       display: block;
-      border-bottom-left-radius: 2px;
-      border-bottom-right-radius: 2px;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
-      background: #000;
+      background: #fff;
     }
   </style>
 </head>
 <body>
   <div id="particles-js"></div>
-  <!-- Left Center Floating Image (rotating & cycling between 1.png, 2.png, 3.png) -->
   <div class="left-center-image">
-    <img id="side-rotating" src="/s/ads/1.png" alt="if you see this it means side photo no workky" class="floating-ad">
+    <img id="side-rotating" src="/s/ads/1.png" alt="oh why tf are u reading this" class="floating-ad">
   </div>
   <header class="header nav-container">
+    <a href="../index.html" class="dog-icon-link">
+            <img src="dog.png" class="header-img">
         </a>
-    <h1 class="header-text">enjoy</h1>
-    <button class="center-button nav-button-large right-fix" onclick="location.href='games.html'">back</button>
+    <h1 class="header-text">Marko's Classroom</h1>
+    <button class="center-button nav-button-large right-fix" onclick="location.href='games.html'">Games</button>
   </header>
   <p>&nbsp;</p>
   <div id="game-bar" class="game-bar">
