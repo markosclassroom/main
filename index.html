@@ -1641,7 +1641,17 @@ function uploadState(file) {
 
 document.addEventListener('DOMContentLoaded', () => {
   lucide.createIcons();
-  openPage('home-page');
+  if (window.location.hash.toLowerCase() === '#privacypolicy') {
+    openPage('privacy-page');
+  } else {
+    openPage('home-page');
+  }
+
+  window.addEventListener('hashchange', () => {
+    if (window.location.hash.toLowerCase() === '#privacypolicy') {
+      openPage('privacy-page');
+    }
+  });
 
   loadIntegratedGames();
   loadNoImageGames();
