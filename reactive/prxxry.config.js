@@ -11,7 +11,7 @@ let _CONFIG = {
 
 // ... keep the rest of the file logic as is, just ensure the default above matches ...
 // Verify default WISP URL passes validation
-console.assert(isValidWispUrl("wss://wisp.rhw.one/wisp/"), "Default WISP URL should pass validation");
+console.assert(isValidWispUrl("wss://anura.pro/"), "Default WISP URL should pass validation");
 
 // Valid URL patterns for WISP servers
 const validWispPatterns = [
